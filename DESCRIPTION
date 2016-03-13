@@ -7,7 +7,11 @@ Authors@R: person("Martin", "Roth", email = "roth@knmi.nl",
 Description: Import KNMI data into R.
 License: MIT + file LICENSE
 LazyData: TRUE
+Depends:
+    R (>= 3.1.0)
 Imports:
-    Rcpp (>= 0.12.3)
+    Rcpp (>= 0.12.3),
+    data.table
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
+Suggests: testthat
