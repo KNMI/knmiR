@@ -12,6 +12,7 @@ HomogenizedPrecipitation <- function(stationId, periodStart=1910) {
   precip[, stationId := stationId]
   precip[, date := as.Date(paste(date), '%Y%m%d')]
   setcolorder(precip, c("date", "stationId", "pr"))
-  attr(precip, "Timestamp") <- Sys.time()
+  attr(precip, "MetaData") <- HomogenizedPrecipitationMetaData()
+  attr(precip, "DownloadMetaData") <- DownloadMetaData()
   return(precip)
 }
