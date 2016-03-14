@@ -1,4 +1,5 @@
 CheckStationId <- function(stationId, periodStart) {
+  longRecord <- NULL
   if (!stationId %in% stationMetaData$stationId) stop("stationId not available")
   else if (periodStart == 1910 &
            !stationId %in% stationMetaData[longRecord==TRUE, stationId]) {
