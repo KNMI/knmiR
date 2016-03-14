@@ -1,7 +1,7 @@
 Package: knmiR
 Type: Package
 Title: Import KNMI Data
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Martin", "Roth", email = "roth@knmi.nl",
                   role = c("aut", "cre"))
 Description: Import KNMI data into R.

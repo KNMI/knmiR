@@ -2,5 +2,6 @@
 
 export(HomogenizedPrecipitation)
 export(hello)
+export(stationMetaData)
 import(Rcpp)
 import(data.table)
