@@ -11,7 +11,11 @@ Depends:
     R (>= 3.1.0)
 Imports:
     Rcpp (>= 0.12.3),
-    data.table
+    data.table,
+    xts,
+    foreach,
+    sp
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
-Suggests: testthat
+Suggests:
+    testthat
