@@ -15,6 +15,7 @@ SanitizeInput <- function(type, ...) {
 
 #' @importFrom xts .parseISO8601
 SanitizeHomogenPrecip <- function(location, period, whichSet) {
+  stationId <- NULL
   if(!whichSet %in% c(1910, 1951, "automatic")) stop("whichSet should be either 1910, 1951, or 'automatic'")
   tryCatch(xts::.parseISO8601(period),
            warning = function(e) {stop()},

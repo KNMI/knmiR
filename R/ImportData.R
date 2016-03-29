@@ -26,9 +26,10 @@ HomogenizedPrecipitation <- function(stationId, periodStart=1910) {
 #' @export
 HomogenPrecip <- function(location, period, whichSet = "automatic") {
   SanitizeInput(type = "HomogenPrecip", location, period, whichSet)
+  longRecord <- lon <- lat <- inArea <- i <- stationId <- NULL
   periodStart <- HomogenPrecipPeriodStart(period)
   if (is.numeric(location)) {
-    tmpStart <- ifelse(stationMetaData[.(location), longRecord] & whichSet != 1951, 1910, 1951)
+    tmpStart <- ifelse(stationMetaData[list(location), longRecord] & whichSet != 1951, 1910, 1951)
     tmp <- HomogenizedPrecipitation(location, tmpStart)
   } else {
     standardCRSstring <- "+proj=longlat +ellps=WGS84"
@@ -39,7 +40,7 @@ HomogenPrecip <- function(location, period, whichSet = "automatic") {
     if(periodStart==1910 | whichSet==1910) {
       tmpMetaData <- tmpMetaData[longRecord==TRUE, ]
     }
-    stationLocations <- sp::SpatialPoints(tmpMetaData[, .(lon, lat)], CRS(standardCRSstring))
+    stationLocations <- sp::SpatialPoints(tmpMetaData[, list(lon, lat)], CRS(standardCRSstring))
     tmpMetaData[, inArea := sp::over(stationLocations, as(location, 'SpatialPolygons'))]
     tmpMetaData <- na.omit(tmpMetaData)
     tmp <- foreach(i = 1 : tmpMetaData[, .N], .combine = "rbind") %do% {
@@ -48,7 +49,7 @@ HomogenPrecip <- function(location, period, whichSet = "automatic") {
     }
   }
   setkey(tmp, date)
-  tmp <- tmp[.(HomogenPrecipDates(period)),]
+  tmp <- tmp[list(HomogenPrecipDates(period)),]
   setkey(tmp, stationId, date)
   setattr(tmp, "MetaData", HomogenizedPrecipitationMetaData())
   setattr(tmp, "DownloadMetaData", DownloadMetaData())
