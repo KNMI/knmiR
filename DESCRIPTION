@@ -14,6 +14,7 @@ Imports:
     data.table,
     xts,
     foreach,
+    rgdal,
     sp
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1

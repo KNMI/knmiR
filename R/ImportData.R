@@ -5,7 +5,6 @@
 #' @param periodStart Either 1910 or 1951
 #' @return data.table with date and precipitation values
 #' @import data.table
-#' @export
 HomogenizedPrecipitation <- function(stationId, periodStart=1910) {
   url <- SpecifyUrlForHomogenPrecipZipped(stationId, periodStart)
   precip <- data.table(ReadZippedFile(url, c("date", "pr")))
@@ -23,6 +22,7 @@ HomogenizedPrecipitation <- function(stationId, periodStart=1910) {
 #' @return data.table with date, stationId and precipitation values
 #' @import sp
 #' @import foreach
+#' @import rgdal
 #' @export
 HomogenPrecip <- function(location, period, whichSet = "automatic") {
   SanitizeInput(type = "HomogenPrecip", location, period, whichSet)
@@ -56,6 +56,8 @@ HomogenPrecip <- function(location, period, whichSet = "automatic") {
   return(tmp)
 }
 
+
+#' @importFrom xts .subset.xts
 #' @importFrom xts .parseISO8601
 HomogenPrecipDates <- function(period) {
   tmp <- xts::.parseISO8601(period, tz="GEZ")
