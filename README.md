@@ -2,7 +2,9 @@
 knmiR
 =====
 
-A package to access KNMI data from within R.
+[![Build Status](https://travis-ci.org/MartinRoth/knmiR.png?branch=master)](https://travis-ci.org/MartinRoth/knmiR)
+
+A package to access KNMI data within R.
 
 Homogenized precipitation data
 ------------------------------
