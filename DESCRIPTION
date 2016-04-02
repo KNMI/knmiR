@@ -1,7 +1,7 @@
 Package: knmiR
 Type: Package
 Title: Import KNMI Data
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: person("Martin", "Roth", email = "roth@knmi.nl",
                   role = c("aut", "cre"))
 Description: Import KNMI data into R.
@@ -16,6 +16,12 @@ Imports:
     foreach,
     rgdal,
     sp
+SystemRequirements: for building from source: GDAL >= 1.6.3, library
+    from http://trac.osgeo.org/gdal/wiki/DownloadSource and PROJ.4
+    (proj >= 4.4.9) from http://download.osgeo.org/proj/; GDAL OSX
+    frameworks built by William Kyngesburye at
+    http://www.kyngchaos.com/ may be used for source installs on
+    OSX.
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
