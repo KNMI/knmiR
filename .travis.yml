@@ -1,7 +1,8 @@
 # Sample .travis.yml for R projects from https://github.com/craigcitro/r-travis
 
 language: r
-sudo: false
+sudo: required
+dist: trusty
 cache: packages
 warnings_are_errors: true
 
