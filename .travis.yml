@@ -8,9 +8,6 @@ warnings_are_errors: true
 addons:
   apt:
     packages:
-      - libhdf5-7
-      - libhdf5-dev
-      - libhdf5-serial-dev
       - libgdal-dev
       - libproj-dev
 #r_github_packages:
