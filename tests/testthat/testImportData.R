@@ -54,3 +54,4 @@ test_that("Area output", {
   expect_equal(precipVallei[.N, date], as.Date("1912-12-31"))
   expect_equal_to_reference(HomogenPrecip(ValleiEnVeluweTransformed, "1911/1912")[1 : 10, ], "./referenceOutput/HomogenPrecipValleiEnVeluwe.rds")
 })
+

@@ -14,6 +14,7 @@ Imports:
     data.table,
     xts,
     foreach,
+    RJSONIO,
     rgdal,
     sp
 SystemRequirements: for building from source: GDAL >= 1.6.3, library
