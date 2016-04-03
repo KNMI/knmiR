@@ -49,7 +49,7 @@ HomogenPrecip <- function(location, period, whichSet = "automatic") {
     }
   }
   setkey(tmp, date)
-  tmp <- tmp[list(HomogenPrecipDates(period)),]
+  tmp <- tmp[date %in% HomogenPrecipDates(period),]
   setkey(tmp, stationId, date)
   setattr(tmp, "MetaData", HomogenizedPrecipitationMetaData())
   setattr(tmp, "DownloadMetaData", DownloadMetaData())
