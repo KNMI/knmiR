@@ -32,3 +32,11 @@ HomogenizedPrecipitationMetaData <- function() {
 
   # source: <a href="http://climexp.knmi.nl">KNMI</a>'))
 }
+
+
+#' Groningen reservoir boundaries
+#'
+#' @format SpatialPolygons
+#'
+#' @source KNMI
+"Groningen"

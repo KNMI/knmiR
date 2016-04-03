@@ -49,7 +49,7 @@ HomogenPrecip <- function(location, period, whichSet = "automatic") {
     }
   }
   setkey(tmp, date)
-  tmp <- tmp[list(HomogenPrecipDates(period)),]
+  tmp <- tmp[date %in% HomogenPrecipDates(period),]
   setkey(tmp, stationId, date)
   setattr(tmp, "MetaData", HomogenizedPrecipitationMetaData())
   setattr(tmp, "DownloadMetaData", DownloadMetaData())
@@ -63,3 +63,42 @@ HomogenPrecipDates <- function(period) {
   tmp <- xts::.parseISO8601(period, tz="GEZ")
   return(seq.Date(as.Date(tmp$first.time), as.Date(tmp$last.time), by = "day"))
 }
+
+#' Loads the KNMI earthquake catalogue
+#' @param type Type of catalogue c('induced', 'tectonic')
+#' @param area Inheriting from spatial polygon
+#' @param period Either numeric, timeBased or ISO-8601 style (see \code{\link[xts]{.subset.xts}})
+#' @return data.table with rows being the single events
+#' @export
+#' @import data.table
+#' @importFrom RJSONIO fromJSON
+#' @examples
+#' Earthquakes("induced", Groningen, "1990/2016")
+#'
+Earthquakes <- function(type="induced", area = NULL, period = NULL) {
+  URL <- SpecifyUrlEarthquakes(type)
+  rawJson <- RJSONIO::fromJSON(URL)
+  tmp <- data.table::rbindlist(lapply(rawJson$events, GetJsonValues))
+  if (!is.null(area)) tmp <- ClipQuakes(tmp, area)
+  if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period),]
+  return(tmp)
+}
+
+#' Select earthquake sover area
+#' @param quakes data.table with earthquakes
+#' @param area SpatialPolygons
+#' @import data.table
+#' @import sp
+ClipQuakes <- function(quakes, area) {
+  lat <- lon <- NULL
+  points <- quakes[, list(lon, lat)]
+  points <- sp::SpatialPoints(points, CRS("+proj=longlat +datum=WGS84"))
+  points <- sp::spTransform(points, area@proj4string)
+  index <- which(!is.na(sp::over(points, area)))
+  return(quakes[index, ])
+}
+
+
+
+
+

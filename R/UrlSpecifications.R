@@ -9,3 +9,12 @@ SpecifyUrlForHomogenPrecipZipped <- function(stationId, periodStart) {
   else stop("periodStart should be 1910 or 1951")
   return(url)
 }
+
+SpecifyUrlEarthquakes <- function(type) {
+  if (type=="induced") {
+    URL <- "http://cdn.knmi.nl/knmi/map/page/seismologie/all_induced.json"
+  } else if (type=="tectonic") {
+    URL <- "http://cdn.knmi.nl/knmi/map/page/seismologie/all_tectonic.json"
+  } else stop("Catalogue type not known.")
+  return(URL)
+}
