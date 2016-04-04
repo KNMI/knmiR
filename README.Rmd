@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 
 A package to access KNMI data within R.
 
+Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues) 
+
 ## Homogenized precipitation data
 To use this data please cite [Buishand et al. (2013): Homogeneity of precipitation series in the Netherlands and their trends in the past century](http://onlinelibrary.wiley.com/doi/10.1002/joc.3471/abstract). At the moment the data are obtained via the [KNMI climate explorer](http://climexp.knmi.nl/).
 
@@ -28,3 +30,4 @@ To use this data please cite [Buishand et al. (2013): Homogeneity of precipitati
 
 ## Earthquake data
 `Earthquakes("induced", Groningen)` provides all induced earthquakes for the Groningen reservoir.
+

@@ -6,6 +6,8 @@ knmiR
 
 A package to access KNMI data within R.
 
+Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues)
+
 Homogenized precipitation data
 ------------------------------
 
