@@ -12,8 +12,6 @@ test_that("Input queries", {
   expect_error(HomogenizedPrecipitation(17, 1910), "not available for periodStart 1910")
 })
 
-precipDeBilt <- HomogenizedPrecipitation(550)
-
 context("Test HomogenPercip")
 
 test_that("Station id output", {
