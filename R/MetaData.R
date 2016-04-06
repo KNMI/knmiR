@@ -40,3 +40,9 @@ HomogenizedPrecipitationMetaData <- function() {
 #'
 #' @source KNMI
 "Groningen"
+
+
+#' Earthquakes maximal domain
+#' @format bbox i.e. 2*2 matrix
+#'
+EarthquakesBoundaryBox <- matrix(c(2, 50, 9, 55), nrow=2)
