@@ -18,12 +18,6 @@ Imports:
     rgdal,
     sp,
     digest
-SystemRequirements: for building from source: GDAL >= 1.6.3, library
-    from http://trac.osgeo.org/gdal/wiki/DownloadSource and PROJ.4
-    (proj >= 4.4.9) from http://download.osgeo.org/proj/; GDAL OSX
-    frameworks built by William Kyngesburye at
-    http://www.kyngchaos.com/ may be used for source installs on
-    OSX.
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
