@@ -2,7 +2,7 @@ SpecifyFileName <- function(name, path, area, period) {
   periodString <- GetFullySpecifiedPeriod(name, period)
   areaString <- GetFullySpecifiedArea(name, area)
   fileName <- paste0(path, name, "_", periodString, "_", areaString,
-                     "_knmiR_0.1.5.1.rds")
+                     "_knmiR_0.1.5.2.rds")
   return(fileName)
 }
 

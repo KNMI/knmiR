@@ -16,6 +16,7 @@ context("Test HomogenPercip")
 
 test_that("Station id output", {
   precipDeBilt <- HomogenPrecip(550, "1911/1912")
+  precipDeBilt <- HomogenPrecip(550, "1911/1912")
   expect_equal(precipDeBilt[1, date], as.Date("1911-01-01"))
   expect_equal(precipDeBilt[.N, date], as.Date("1912-12-31"))
   expect_equal_to_reference(precipDeBilt[1 : 10,], file = "./referenceOutput/outputDeBilt.rds")
