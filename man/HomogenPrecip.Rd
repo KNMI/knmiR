@@ -4,7 +4,7 @@
 \alias{HomogenPrecip}
 \title{Obtains homogenized precipitation data}
 \usage{
-HomogenPrecip(location, period, whichSet = "automatic")
+HomogenPrecip(location, period, whichSet = "automatic", path = "")
 }
 \arguments{
 \item{location}{Either inheriting from spatial polygon or station number}
@@ -12,6 +12,8 @@ HomogenPrecip(location, period, whichSet = "automatic")
 \item{period}{Either numeric, timeBased or ISO-8601 style (see \code{\link[xts]{.subset.xts}})}
 
 \item{whichSet}{Which set should be used c(1910, 1951, "automatic")?}
+
+\item{path}{for file download}
 }
 \value{
 data.table with date, stationId and precipitation values

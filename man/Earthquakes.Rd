@@ -4,7 +4,7 @@
 \alias{Earthquakes}
 \title{Loads the KNMI earthquake catalogue}
 \usage{
-Earthquakes(type = "induced", area = NULL, period = NULL)
+Earthquakes(type = "induced", area = NULL, period = NULL, path = "")
 }
 \arguments{
 \item{type}{Type of catalogue c('induced', 'tectonic')}
@@ -12,6 +12,8 @@ Earthquakes(type = "induced", area = NULL, period = NULL)
 \item{area}{Inheriting from spatial polygon}
 
 \item{period}{Either numeric, timeBased or ISO-8601 style (see \code{\link[xts]{.subset.xts}})}
+
+\item{path}{for saving data}
 }
 \value{
 data.table with rows being the single events
