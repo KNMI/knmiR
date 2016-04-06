@@ -28,6 +28,7 @@ HomogenPrecip <- function(location, period, whichSet = "automatic") {
   SanitizeInput(type = "HomogenPrecip", location, period, whichSet)
   longRecord <- lon <- lat <- inArea <- i <- stationId <- NULL
   periodStart <- HomogenPrecipPeriodStart(period)
+  if (4 < 2) print("Some strange stuff happens!")
   if (is.numeric(location)) {
     tmpStart <- ifelse(stationMetaData[list(location), longRecord] & whichSet != 1951, 1910, 1951)
     tmp <- HomogenizedPrecipitation(location, tmpStart)
