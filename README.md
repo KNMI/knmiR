@@ -6,6 +6,8 @@ knmiR
 
 A package to access KNMI data within R.
 
+Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues)
+
 Homogenized precipitation data
 ------------------------------
 
@@ -16,4 +18,4 @@ To use this data please cite [Buishand et al. (2013): Homogeneity of precipitati
 Earthquake data
 ---------------
 
-`Earthquakes("induced", Groningen)` provides all induced earthquakes for the Groningen reservoir.
+`Earthquakes("induced")` provides all induced earthquakes from the KNMI earthquake catalogue. Natural, i.e. `tectonic` quakes, are also available. The data can be restricted to a specific area (extending `SpatialPolygons`) and a specific period. For instance `Earthquakes("induced", Groningen, "2015/2016")` obtaines all induced earthquakes for the Groningen reservoir (is shipped with the package) in the years 2015 and 2016. At the moment the earthquake data are obtained via [KNMI Aardbevingscatalogus](https://www.knmi.nl/kennis-en-datacentrum/dataset/aardbevingscatalogus).
