@@ -6,6 +6,7 @@ test_that("Corrected input", {
 
 
 quakes <- Earthquakes("induced", NULL, "1980/2015-11-15")
+quakes <- Earthquakes("induced", NULL, "1980/2015-11-15")
 #quakes <- quakes[ date <= "2015-11-15"]
 tectonicQuakes <- Earthquakes('tectonic')
 
