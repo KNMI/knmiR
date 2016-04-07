@@ -65,7 +65,7 @@ HomogenPrecip <- function(location, period, whichSet = "automatic", path="") {
 }
 
 DownloadMessage <- function(name) {
-  message(paste0("Downloadind data from ", DownloadMessageContent(name)))
+  message(paste0("Downloading data from ", DownloadMessageContent(name)))
 }
 
 DownloadMessageContent <- function(name) {
