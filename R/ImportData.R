@@ -30,7 +30,7 @@ HomogenPrecip <- function(location, period, whichSet = "automatic", path="") {
   longRecord <- lon <- lat <- inArea <- i <- stationId <- NULL
   fileName <- SpecifyFileName("HomogenPrecip", path, location, period)
   if (!file.exists(fileName)) {
-    message("Downloading data from climate explorer")
+    DownloadMessage("HomogenPrecip")
     periodStart <- HomogenPrecipPeriodStart(period)
     if (is.numeric(location)) {
       tmpStart <- ifelse(stationMetaData[list(location), longRecord] & whichSet != 1951, 1910, 1951)
@@ -64,6 +64,16 @@ HomogenPrecip <- function(location, period, whichSet = "automatic", path="") {
   return(tmp)
 }
 
+DownloadMessage <- function(name) {
+  message(paste0("Downloadind data from ", DownloadMessageContent(name)))
+}
+
+DownloadMessageContent <- function(name) {
+  switch(name,
+         "Earthquakes" = return("www.knmi.nl/kennis-en-datacentrum/dataset/aardbevingscatalogus"),
+         "HomogenPrecip" = return("www.climexp.knmi.nl")
+  )
+}
 
 #' @importFrom xts .subset.xts
 #' @importFrom xts .parseISO8601
@@ -91,6 +101,7 @@ Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
     fileName <- SpecifyFileName("EarthquakesTectonic", path, area, period)
   } else stop("Catalogue type not known.")
   if (!file.exists(fileName)) {
+    DownloadMessage("Earthquakes")
     URL <- SpecifyUrlEarthquakes(type)
     rawJson <- RJSONIO::fromJSON(URL)
     tmp <- data.table::rbindlist(lapply(rawJson$events, GetJsonValues))
