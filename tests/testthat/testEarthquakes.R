@@ -1,3 +1,4 @@
+library(knmiR)
 context("Earthquake data")
 
 test_that("Corrected input", {
