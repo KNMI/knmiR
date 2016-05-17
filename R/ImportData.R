@@ -57,7 +57,7 @@ HomogenPrecip <- function(location, period, whichSet = "automatic", path="") {
     setkey(tmp, stationId, date)
     setattr(tmp, "MetaData", HomogenizedPrecipitationMetaData())
     setattr(tmp, "DownloadMetaData", DownloadMetaData())
-    saveRDS(tmp, file = fileName)
+    #saveRDS(tmp, file = fileName)
   } else {
     tmp <- readRDS(fileName)
   }
@@ -107,7 +107,7 @@ Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
     tmp <- data.table::rbindlist(lapply(rawJson$events, GetJsonValues))
     if (!is.null(area)) tmp <- ClipQuakes(tmp, area)
     if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period),]
-    saveRDS(tmp, file=fileName)
+    #saveRDS(tmp, file=fileName)
   } else {
     tmp <- readRDS(fileName)
   }
