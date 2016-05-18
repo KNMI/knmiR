@@ -13,7 +13,7 @@ HomogenPrecip(location, period, whichSet = "automatic", path = "")
 
 \item{whichSet}{Which set should be used c(1910, 1951, "automatic")?}
 
-\item{path}{for file download}
+\item{path}{for file download (if set to NULL data are always downloaded but not saved)}
 }
 \value{
 data.table with date, stationId and precipitation values

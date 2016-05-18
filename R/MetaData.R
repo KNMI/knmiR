@@ -33,6 +33,9 @@ HomogenizedPrecipitationMetaData <- function() {
   # source: <a href="http://climexp.knmi.nl">KNMI</a>'))
 }
 
+EarthquakesMetaData <- function() {
+  return(strwrap('# Earthquake meta data is a place holder'))
+}
 
 #' Groningen reservoir boundaries
 #'
