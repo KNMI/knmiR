@@ -6,6 +6,15 @@ SpecifyFileName <- function(name, path, area, period) {
   return(fileName)
 }
 
+SpecifyFileNameEarthquakes <- function(type, path, area, period) {
+  if (type == "induced") {
+    fileName <- SpecifyFileName("EarthquakesInduced", path, area, period)
+  } else if (type == "tectonic") {
+    fileName <- SpecifyFileName("EarthquakesTectonic", path, area, period)
+  } else stop("Catalogue type not known.")
+  return(fileName)
+}
+
 GetFullySpecifiedPeriod <- function(name, period = NULL) {
   startDate <- GetStartDate(name)
   endDate <- Sys.Date()

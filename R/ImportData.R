@@ -105,12 +105,7 @@ HomogenPrecipDates <- function(period) {
 Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
   if (is.null(path)) tmp <- EarthquakesDownload(type, area, period)
   else {
-    if (type == "induced") {
-      fileName <- SpecifyFileName("EarthquakesInduced", path, area, period)
-    } else if (type == "tectonic") {
-      fileName <- SpecifyFileName("EarthquakesTectonic", path, area, period)
-    } else stop("Catalogue type not known.")
-
+    fileName <- SpecifyFileNameEarthquakes(type, path, area, period)
     if (!file.exists(fileName)) {
       tmp <- EarthquakesDownload(type, area, period)
       saveRDS(tmp, file=fileName)
