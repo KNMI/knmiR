@@ -3,6 +3,10 @@ library(knmiR)
 
 context("Sources should be up to date")
 
+test_that("License", {
+  expect_match(DataLicense("test"), "This is license for data set.")
+})
+
 today <- as.Date(Sys.time())
 
 test_that("Actuality", {

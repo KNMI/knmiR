@@ -1,3 +1,7 @@
+DataLicense <- function(data) {
+  stop("Not yet implemented!")
+}
+
 #' Homogenized precipitation station meta data
 #'
 #' A dataset containing the station meta data for the stations
