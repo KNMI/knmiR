@@ -8,9 +8,9 @@ SpecifyFileName <- function(name, path, area, period) {
 
 SpecifyFileNameEarthquakes <- function(type, path, area, period) {
   if (type == "induced") {
-    fileName <- SpecifyFileName("EarthquakesInduced", path, area, period)
+    fileName <- SpecifyFileName("InducedQuakes", path, area, period)
   } else if (type == "tectonic") {
-    fileName <- SpecifyFileName("EarthquakesTectonic", path, area, period)
+    fileName <- SpecifyFileName("TectonicQuakes", path, area, period)
   } else stop("Catalogue type not known.")
   return(fileName)
 }
@@ -30,8 +30,8 @@ GetFullySpecifiedPeriod <- function(name, period = NULL) {
 GetStartDate <- function(name) {
   switch (name,
     "HomogenPrecip" = return(as.Date("1910-01-01")),
-    "EarthquakesInduced" = return(as.Date("1986-01-01")),
-    "EarthquakesTectonic" = return(as.Date("1911-01-01")),
+    "InducedQuakes" = return(as.Date("1986-01-01")),
+    "TectonicQuakes" = return(as.Date("1911-01-01")),
     stop("Name not defined"))
 }
 
@@ -51,6 +51,6 @@ GetMaxDomain <- function(name) {
   lon <- lat <- NULL
   switch (name,
     "HomogenPrecip" = return(sp::bbox(sp::SpatialPoints(stationMetaData[, cbind(lon, lat)]))),
-    "EarthquakesInduced" = return(EarthquakesBoundaryBox),
-    "EarthquakesTectonic" = return(EarthquakesBoundaryBox))
+    "InducedQuakes" = return(EarthquakesBoundaryBox),
+    "TectonicQuakes" = return(EarthquakesBoundaryBox))
 }
