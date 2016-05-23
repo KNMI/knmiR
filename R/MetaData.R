@@ -11,7 +11,6 @@
 #'   \item{stationName}{Name of the Station}
 #'   \item{longRecord}{TRUE if record starts in 1910}}
 #' @source T. Brandsma \url{brandsma@knmi.nl}
-#' @export
 "stationMetaData"
 
 DownloadMetaData <- function() {
@@ -43,7 +42,6 @@ EarthquakesMetaData <- function() {
 #'
 #' @source KNMI
 "Groningen"
-
 
 #' Earthquakes maximal domain
 #' @format bbox i.e. 2*2 matrix

@@ -11,6 +11,8 @@ Depends:
     R (>= 3.1.0)
 Imports:
     Rcpp (>= 0.12.3),
+    methods,
+    utils,
     data.table,
     xts,
     foreach,

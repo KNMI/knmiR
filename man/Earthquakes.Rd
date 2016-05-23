@@ -22,7 +22,10 @@ data.table with rows being the single events
 Loads the KNMI earthquake catalogue
 }
 \examples{
-Earthquakes("induced", Groningen, "1990/2016")
+data <- Earthquakes("induced", Groningen, "1990/2016")
+Description(data)
+Citation(data)
+License(data)
 
 }
 
