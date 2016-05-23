@@ -116,9 +116,9 @@ MetaData <- function(x, ...) {
 #' @export
 MetaData.KnmiData <- function(x, ...) {
   if (!is.null(attr(x, "version"))) {
-    writeLines(paste0("Downloaded via knmiR package version: ",
+    paste0("Downloaded via knmiR package version: ",
                       attr(x, "version"), " on\n",
-                      attr(x, "timeStamp")))
+                      attr(x, "timeStamp"))
   } else {
     warning(paste(deparse(substitute(x)),
                   "was modified before. No metadata available."))
