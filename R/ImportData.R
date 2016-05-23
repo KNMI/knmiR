@@ -100,14 +100,18 @@ HomogenPrecipDates <- function(period) {
 #' @import data.table
 #' @importFrom RJSONIO fromJSON
 #' @examples
-#' Earthquakes("induced", Groningen, "1990/2016")
+#' data <- Earthquakes("induced", Groningen, "1990/2016")
+#' Description(data)
+#' Citation(data)
+#' License(data)
 #'
 Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
-  if (is.null(path)) tmp <- EarthquakesDownload(type, area, period)
+  cl <- match.call()
+  if (is.null(path)) tmp <- EarthquakesDownload(type, area, period, cl)
   else {
     fileName <- SpecifyFileNameEarthquakes(type, path, area, period)
     if (!file.exists(fileName)) {
-      tmp <- EarthquakesDownload(type, area, period)
+      tmp <- EarthquakesDownload(type, area, period, cl)
       saveRDS(tmp, file=fileName)
     } else {
       tmp <- readRDS(fileName)
@@ -116,15 +120,14 @@ Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
   return(tmp)
 }
 
-EarthquakesDownload <- function(type, area, period) {
+EarthquakesDownload <- function(type, area, period, call) {
   DownloadMessage("Earthquakes")
   URL     <- SpecifyUrlEarthquakes(type)
   rawJson <- RJSONIO::fromJSON(URL)
   tmp     <- data.table::rbindlist(lapply(rawJson$events, GetJsonValues))
   if (!is.null(area))   tmp <- ClipQuakes(tmp, area)
   if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period),]
-  setattr(tmp, "MetaData", EarthquakesMetaData())
-  setattr(tmp, "DownloadMetaData", DownloadMetaData())
+  tmp <- KnmiData(tmp, call, "Earthquakes")
   return(tmp)
 }
 
