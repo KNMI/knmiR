@@ -26,7 +26,7 @@ KnmiData <- function(data, call, type) {
 
 KnmiDataInformation <- function(x, attribute, objectName) {
   if (!is.null(attr(x, attribute))) {
-    paste(attr(x, attribute))
+    attr(x, attribute)
   } else {
     warning(paste(objectName, "was modified before. No", attribute,
                   "available."))
