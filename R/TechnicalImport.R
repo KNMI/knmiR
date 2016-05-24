@@ -8,11 +8,9 @@ ReadZippedFile <- function(url, colNames) {
 }
 
 GetJsonValues <- function(entry) {
-  date           <- as.Date(entry["date"])
-  year           <- as.numeric(format(date, "%Y"))
-  month          <- as.numeric(format(date, "%m"))
-  day            <- as.numeric(format(date, "%d"))
+  date           <- as.Date(entry["date"], tz="CET")
   time           <- as.character(entry["time"])
+ # datetime       <- as.POSIXlt(paste0(date, " ", time))
   type           <- as.character(entry["type"])
   depth          <- as.numeric(entry["depth"])
   evaluationMode <- as.character(entry["evaluationMode"])
@@ -20,7 +18,8 @@ GetJsonValues <- function(entry) {
   lon            <- as.numeric(entry["lon"])
   mag            <- as.numeric(entry["mag"])
   place          <- as.character(entry["place"])
-  return(data.frame(date, year, month, day, time, place, type,
+  return(data.frame(date, time,
+                    place, type,
                     evaluationMode, lat, lon, depth, mag,
                     stringsAsFactors = FALSE))
 }

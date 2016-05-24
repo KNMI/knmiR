@@ -5,7 +5,10 @@ context("Sources should be up to date")
 
 today <- as.Date(Sys.time())
 
-test_that("Acutality", {
-  expect_more_than(HomogenPrecip(10, paste0(today-45, "/", today))[, .N], 0)
-  expect_more_than(Earthquakes("induced", NULL, paste0(today-14, "/", today))[, .N], 0)
+test_that("Actuality", {
+  expect_gt(HomogenPrecip(10, paste0(today-45, "/", today), path = NULL)[, .N], 0)
+  recentQuakes <- Earthquakes("induced", NULL, paste0(today-14, "/", today), path=NULL)
+  expect_gt(recentQuakes[, .N], 0)
+  expect_match(License(recentQuakes), "Open data")
 })
+
