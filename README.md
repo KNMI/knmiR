@@ -6,7 +6,18 @@ knmiR
 
 A package to access KNMI data within R.
 
-Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues)
+Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues).
+
+General
+-------
+
+The data can be downloaded ususally in the following scheme `Dataset(location, period, ...)`. The `location` can have the following forms:
+
+-   `integer` identifying the station (in the case of station data)
+-   `SpatialPoint` closest station (grid box) time series in the case of station (gridded) data
+-   `SpatialPolygon` (or `bbox`) all stations (grid boxes) in the given spatial extent
+
+The `period` is to follow the `xts` form, e.g. `"2010/2015"` for all data in the years 2010-2015.
 
 Homogenized precipitation data
 ------------------------------
