@@ -5,6 +5,7 @@ branches:
   only:
     - master
     - develop
+    - unifySelection
 
 language: r
 sudo: required
