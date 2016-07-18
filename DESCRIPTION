@@ -19,6 +19,7 @@ Imports:
     RJSONIO,
     rgdal,
     sp,
+    ncdf4,
     digest
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
