@@ -8,12 +8,13 @@
 #'  bbox or extending SpatialPolygon for everything inside area
 #' @param period Either numeric, timeBased or ISO-8601 style (see \code{\link[xts]{.subset.xts}})
 #' @param path for file download (if set to NULL data are always downloaded but not saved)
-#' @param basegrid String identifying the basegrid
-#' @param regrid Boolean should it be regridded through WCS
+#' @param ncdfFile String identifying local ncdf file (default NULL corresponds to not locally available)
+#' @param basegrid String identifying the basegrid (if ncdfFile determined by file)
+#' @param regrid Boolean should it be regridded through WCS (if ncdfFile not implemented)
 #' @param resx x-Resolution for regridding (default 0.25)
 #' @param resy y-Resolution for regridding (default 0.25)
 #' @export
-EOBS <- function(variable, geoIdentifier, period, path,
+EOBS <- function(variable, geoIdentifier, period, path, ncdfFile = NULL,
                  basegrid, regrid=FALSE, resx=0.25, resy=0.25) {
   url <- "https://climate4impact.eu/impactportal/adagucserver?"
   url <- paste0(url, "source=http%3A%2F%2Fopendap.knmi.nl")

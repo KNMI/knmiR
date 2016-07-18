@@ -4,8 +4,8 @@
 \alias{EOBS}
 \title{Imports EOBS data (template for transition to WCS)}
 \usage{
-EOBS(variable, geoIdentifier, period, path, basegrid, regrid = FALSE,
-  resx = 0.25, resy = 0.25)
+EOBS(variable, geoIdentifier, period, path, ncdfFile = NULL, basegrid,
+  regrid = FALSE, resx = 0.25, resy = 0.25)
 }
 \arguments{
 \item{variable}{String(s) identifying variable(s)}
@@ -18,7 +18,9 @@ bbox or extending SpatialPolygon for everything inside area}
 
 \item{path}{for file download (if set to NULL data are always downloaded but not saved)}
 
-\item{basegrid}{String identifying the basegrid}
+\item{ncdfFile}{String identifying local ncdf file (defauly NULL corresponds to not locally available)}
+
+\item{basegrid}{String identifying the basegrid (if ncdfFile determined by file)}
 
 \item{regrid}{Boolean should it be regridded through WCS}
 
