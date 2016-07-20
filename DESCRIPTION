@@ -23,5 +23,6 @@ Imports:
     digest
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
+SystemRequirements: netcdf library version 4.1 or later
 Suggests:
     testthat

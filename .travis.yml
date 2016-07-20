@@ -18,6 +18,8 @@ addons:
     packages:
       - libgdal-dev
       - libproj-dev
+      - netcdf-bin
+      - libnetcdf-dev
 
 r_github_packages:
   - jimhester/covr
