@@ -39,7 +39,7 @@ graph <- DiagrammeR::mermaid("
   E --> |no|G(Download data)
   G --> H(Transform data)
   H --> I(Save on disk)
-  I --> J(Return data)
+  I --> J(Return data and exit)
   F --> J
   ")
 saveWidget(graph, 'tmp.html', selfcontained=FALSE)
