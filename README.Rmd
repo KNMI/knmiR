@@ -71,17 +71,16 @@ library(webshot)
 graph <- DiagrammeR::mermaid("
   graph LR
   A --> B",
-  height=200)
+  width=200, height=150)
 saveWidget(graph, 'tmp.html', selfcontained=FALSE)
 webshot('tmp.html',
         file = 'inst/img/example_graph.png',
-        cliprect = "viewport")
+        vwidth=10, vheight=10)
 
 
-#sequenceDiagram %>% export_graph('inst/img/example_graph.png')
 ```
 
-<img src="inst/img/example_graph.png">
+<img src="inst/img/example_graph.png" align="middle">
 
 A package to access KNMI data within R.
 
