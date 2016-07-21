@@ -27,6 +27,22 @@ library(htmlwidgets)
 library(webshot)
 ```
 
+```{r, InputAndOutputGraph, include=FALSE}
+graph <- DiagrammeR::mermaid("
+  graph TB
+  B(Station data homePrecip) --> A(Input)
+  C(Gridded data EOBS Radar) --> A
+  D(Irregular data Earthquakes) --> A
+  A --> |Processing|E(Output)
+  E --> F(Data.table)
+  E --> G(Raster?)
+  ")
+saveWidget(graph, 'tmp.html', selfcontained=FALSE)
+webshot('tmp.html',
+        file = 'inst/img/input_output.png')
+```
+<img src="inst/img/input_output.png" align="middle">
+
 ```{r, CreateExampleGraph, include=FALSE}
 graph <- DiagrammeR::mermaid("
   graph TB

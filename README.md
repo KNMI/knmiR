@@ -4,6 +4,8 @@ knmiR
 
 [![Build Status](https://travis-ci.org/MartinRoth/knmiR.png?branch=master)](https://travis-ci.org/MartinRoth/knmiR) [![Coverage Status](https://img.shields.io/codecov/c/github/MartinRoth/knmiR/master.svg)](https://codecov.io/github/MartinRoth/knmiR?branch=master)
 
+<img src="inst/img/input_output.png" align="middle">
+
 <img src="inst/img/example_graph.png" align="middle">
 
 A package to access KNMI data within R.
