@@ -74,7 +74,11 @@ graph <- DiagrammeR::mermaid("
   B --> |yes|C(Cut Dimensions)
   B --> |no|D(Generate root name)
   C --> D
-  D --> E(Load Data)
+  D --> E[Avaiblable on disk]
+  E --> |yes|F(Load disk file)
+  E --> |no|G(Download data)
+  G --> H(Transform data)
+  H --> I(Save and return data)
   ")
 saveWidget(graph, 'tmp.html', selfcontained=FALSE)
 webshot('tmp.html',
