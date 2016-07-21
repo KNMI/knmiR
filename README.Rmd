@@ -69,8 +69,13 @@ library(webshot)
 #")
 
 graph <- DiagrammeR::mermaid("
-  graph LR
-  A --> B")
+  graph TB
+  A(Get File Information) --> B[Dimensions exceeding]
+  B --> |yes|C(Cut Dimensions)
+  B --> |no|D(Generate root name)
+  C --> D
+  D --> E(Load Data)
+  ")
 saveWidget(graph, 'tmp.html', selfcontained=FALSE)
 webshot('tmp.html',
         file = 'inst/img/example_graph.png')
