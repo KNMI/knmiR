@@ -4,6 +4,10 @@ knmiR
 
 [![Build Status](https://travis-ci.org/MartinRoth/knmiR.png?branch=master)](https://travis-ci.org/MartinRoth/knmiR) [![Coverage Status](https://img.shields.io/codecov/c/github/MartinRoth/knmiR/master.svg)](https://codecov.io/github/MartinRoth/knmiR?branch=master)
 
+    #> pre-main prep time: 0 ms
+
+<img src="inst/img/example_graph.png">
+
 A package to access KNMI data within R.
 
 Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues).
