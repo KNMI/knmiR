@@ -70,12 +70,10 @@ library(webshot)
 
 graph <- DiagrammeR::mermaid("
   graph LR
-  A --> B",
-  width=20, height=15)
+  A --> B")
 saveWidget(graph, 'tmp.html', selfcontained=FALSE)
 webshot('tmp.html',
-        file = 'inst/img/example_graph.png',
-        vwidth=10, vheight=10)
+        file = 'inst/img/example_graph.png')
 
 
 ```
