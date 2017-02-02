@@ -3,11 +3,11 @@ library(knmiR)
 
 today <- Sys.time()
 
-context("EOBS - Transition to WCS")
-test_that("WCS gives the same output", {
-  expect_equal_to_reference(EOBS("tg", 1, 2, 3, 4),
-                            file = "./referenceOutput/initialEOBS.rds")
-})
+# context("EOBS - Transition to WCS")
+# test_that("WCS gives the same output", {
+#   expect_equal_to_reference(EOBS("tg", 1, 2, 3, 4),
+#                             file = "./referenceOutput/initialEOBS.rds")
+# })
 
 context("Homogenized precipitation data")
 
