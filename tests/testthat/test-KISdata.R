@@ -1,6 +1,6 @@
 library(futile.logger)
 flog.threshold(DEBUG)
-flog.appender(appender.file('DutchClimate.log'))
+flog.appender(appender.file('knmiR.log'))
 
 context("KIS data extraction")
 
