@@ -21,4 +21,3 @@ data.table with date, stationId and precipitation values
 \description{
 8-8 daily precipitation measurements
 }
-

@@ -20,4 +20,3 @@ An augmentated data object
 The creation of the same data should be facilitated by the
  storage of call, knmiR package version and timeStamp
 }
-

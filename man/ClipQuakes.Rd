@@ -14,4 +14,3 @@ ClipQuakes(quakes, area)
 \description{
 Select earthquake sover area
 }
-

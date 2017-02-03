@@ -16,4 +16,3 @@ KIStemplate(var, geoIdentifier, period)
 \description{
 Python test template
 }
-

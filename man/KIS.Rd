@@ -19,4 +19,3 @@ data.table
 \description{
 Extract data from KIS
 }
-
