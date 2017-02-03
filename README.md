@@ -4,10 +4,6 @@ knmiR
 
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Build Status](https://travis-ci.org/MartinRoth/knmiR.png?branch=master)](https://travis-ci.org/MartinRoth/knmiR) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/MartinRoth/knmiR?branch=master&svg=true)](https://ci.appveyor.com/project/MartinRoth/knmiR) [![Coverage Status](https://img.shields.io/codecov/c/github/MartinRoth/knmiR/master.svg)](https://codecov.io/github/MartinRoth/knmiR?branch=master)
 
-<img src="inst/img/input_output.png" align="middle">
-
-<img src="inst/img/example_graph.png" align="middle">
-
 A package to access KNMI data within R.
 
 Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues).

@@ -29,46 +29,6 @@ library(htmlwidgets)
 library(webshot)
 ```
 
-```{r, InputAndOutputGraph, include=FALSE}
-graph <- DiagrammeR::mermaid('
-  graph TB
-  B("Station data (homogenized Precip)") --> A(Input)
-  C("Gridded data (EOBS,Radar)") --> A
-  D("Irregular data (Earthquakes)") --> A
-  A --> |Processing|E(Output)
-  E --> F(Data.table)
-  E --> G(Raster?)
-  ')
-saveWidget(graph, 'tmp.html', selfcontained=FALSE)
-webshot('tmp.html',
-        file = 'inst/img/input_output.png')
-```
-<img src="inst/img/input_output.png" align="middle">
-
-```{r, CreateExampleGraph, include=FALSE}
-graph <- DiagrammeR::mermaid("
-  graph TB
-  A(Get File Information) --> B[Dimensions exceeding]
-  B --> |yes|C(Cut Dimensions)
-  B --> |no|D(Generate root name)
-  C --> D
-  D --> E[Avaiblable on disk]
-  E --> |yes|F(Load disk file)
-  E --> |no|G(Download data)
-  G --> H(Transform data)
-  H --> I(Save on disk)
-  I --> J(Return data and exit)
-  F --> J
-  ")
-saveWidget(graph, 'tmp.html', selfcontained=FALSE)
-webshot('tmp.html',
-        file = 'inst/img/example_graph.png')
-
-
-```
-
-<img src="inst/img/example_graph.png" align="middle">
-
 A package to access KNMI data within R.
 
 Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues).
