@@ -2,11 +2,22 @@
 knmiR
 =====
 
-[![Build Status](https://travis-ci.org/MartinRoth/knmiR.png?branch=master)](https://travis-ci.org/MartinRoth/knmiR) [![Coverage Status](https://img.shields.io/codecov/c/github/MartinRoth/knmiR/master.svg)](https://codecov.io/github/MartinRoth/knmiR?branch=master)
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Build Status](https://travis-ci.org/MartinRoth/knmiR.png?branch=master)](https://travis-ci.org/MartinRoth/knmiR) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/MartinRoth/knmiR?branch=master&svg=true)](https://ci.appveyor.com/project/MartinRoth/knmiR) [![Coverage Status](https://img.shields.io/codecov/c/github/MartinRoth/knmiR/master.svg)](https://codecov.io/github/MartinRoth/knmiR?branch=master)
 
 A package to access KNMI data within R.
 
-Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues)
+Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues).
+
+General
+-------
+
+The data can be downloaded ususally in the following scheme `Dataset(var, location, period, ...)`. The `location` can have the following forms:
+
+-   `integer` identifying the station (in the case of station data)
+-   `SpatialPoint` closest station (grid box) time series in the case of station (gridded) data
+-   `SpatialPolygon` (or `bbox`) all stations (grid boxes, events in case of irregular data) in the given spatial extent
+
+The `period` is to follow the `xts` form, e.g. `"2010/2015"` for all data in the years 2010-2015.
 
 Homogenized precipitation data
 ------------------------------
@@ -19,9 +30,3 @@ Earthquake data
 ---------------
 
 `Earthquakes("induced")` provides all induced earthquakes from the KNMI earthquake catalogue. Natural, i.e. `tectonic` quakes, are also available. The data can be restricted to a specific area (extending `SpatialPolygons`) and a specific period. For instance `Earthquakes("induced", Groningen, "2015/2016")` obtaines all induced earthquakes for the Groningen reservoir (is shipped with the package) in the years 2015 and 2016. At the moment the earthquake data are obtained via [KNMI Aardbevingscatalogus](https://www.knmi.nl/kennis-en-datacentrum/dataset/aardbevingscatalogus).
-
-EOBS data
----------
-
-Hail data
----------

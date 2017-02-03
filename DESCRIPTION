@@ -1,7 +1,7 @@
 Package: knmiR
 Type: Package
 Title: Import KNMI Data
-Version: 0.1.5.3
+Version: 0.1.5.4
 Authors@R: person("Martin", "Roth", email = "roth@knmi.nl",
                   role = c("aut", "cre"))
 Description: Import KNMI data into R.
@@ -19,8 +19,14 @@ Imports:
     RJSONIO,
     rgdal,
     sp,
-    digest
+    ncdf4,
+    digest,
+    checkmate,
+    futile.logger,
+    magrittr,
+    stringr
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.0
+SystemRequirements: netcdf library version 4.1 or later
 Suggests:
     testthat
