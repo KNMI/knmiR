@@ -15,7 +15,7 @@ The data can be downloaded ususally in the following scheme `Dataset(var, locati
 
 -   `integer` identifying the station (in the case of station data)
 -   `SpatialPoint` closest station (grid box) time series in the case of station (gridded) data
--   `SpatialPolygon` (or `bbox`) all stations (grid boxes) in the given spatial extent
+-   `SpatialPolygon` (or `bbox`) all stations (grid boxes, events in case of irregular data) in the given spatial extent
 
 The `period` is to follow the `xts` form, e.g. `"2010/2015"` for all data in the years 2010-2015.
 
