@@ -17,4 +17,3 @@ data.table with date and precipitation values
 \description{
 The data are downloaded from the Climate Explorer.
 }
-

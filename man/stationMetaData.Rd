@@ -23,4 +23,3 @@ A dataset containing the station meta data for the stations
 used in Buishand et al. (2013)
 }
 \keyword{datasets}
-

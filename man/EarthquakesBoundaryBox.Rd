@@ -12,4 +12,3 @@ EarthquakesBoundaryBox
 Earthquakes maximal domain
 }
 \keyword{datasets}
-
