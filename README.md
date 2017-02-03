@@ -15,7 +15,7 @@ Please, if there are any issues of any kind, file an issue [here](https://github
 General
 -------
 
-The data can be downloaded ususally in the following scheme `Dataset(location, period, ...)`. The `location` can have the following forms:
+The data can be downloaded ususally in the following scheme `Dataset(var, location, period, ...)`. The `location` can have the following forms:
 
 -   `integer` identifying the station (in the case of station data)
 -   `SpatialPoint` closest station (grid box) time series in the case of station (gridded) data
@@ -34,9 +34,3 @@ Earthquake data
 ---------------
 
 `Earthquakes("induced")` provides all induced earthquakes from the KNMI earthquake catalogue. Natural, i.e. `tectonic` quakes, are also available. The data can be restricted to a specific area (extending `SpatialPolygons`) and a specific period. For instance `Earthquakes("induced", Groningen, "2015/2016")` obtaines all induced earthquakes for the Groningen reservoir (is shipped with the package) in the years 2015 and 2016. At the moment the earthquake data are obtained via [KNMI Aardbevingscatalogus](https://www.knmi.nl/kennis-en-datacentrum/dataset/aardbevingscatalogus).
-
-EOBS data
----------
-
-Hail data
----------
