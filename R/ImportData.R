@@ -130,10 +130,10 @@ EarthquakesDownload <- function(type, area, period, call) {
 }
 
 #' Select earthquake sover area
+#'
 #' @param quakes data.table with earthquakes
 #' @param area SpatialPolygons
-#' @import data.table
-#' @import sp
+#' @export
 ClipQuakes <- function(quakes, area) {
   lat <- lon <- NULL
   points <- quakes[, list(lon, lat)]
