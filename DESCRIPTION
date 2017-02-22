@@ -30,4 +30,5 @@ RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = FALSE)
 SystemRequirements: netcdf library version 4.1 or later
 Suggests:
-    testthat
+    testthat,
+    rgeos
