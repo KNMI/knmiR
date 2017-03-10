@@ -19,3 +19,7 @@ data.table
 \description{
 Extract data from KIS
 }
+\examples{
+ KIS('TG', '260_H', '2016')
+ KIS('MOR_10', '260_A_a', '2016')
+}

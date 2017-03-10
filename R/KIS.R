@@ -4,6 +4,9 @@
 #' @param period Either numeric, timeBased or ISO-8601 style (see \code{\link[xts]{.subset.xts}})
 #' @return data.table
 #' @export
+#' @examples
+#'  KIS('TG', '260_H', '2016')
+#'  KIS('MOR_10', '260_A_a', '2016')
 KIS <- function(var, geoIdentifier, period) {
   InternalOnly()
   flog.debug("Started downloading data from KIS")
@@ -76,8 +79,8 @@ WriteKISRecipe <- function(var, locationID, period) {
     paste0('"elementgroupnames":[],') %>%
     paste0('"unitsettings":[{"unit":"', unit, '",') %>%
     paste0('"scale":"true","conversionfunction":"NONE"}],') %>%
-    paste0('"starttime":"20160115_000000_000000",') %>%
-    paste0('"endtime":"20160916_000000_000000",') %>%
+    paste0('"starttime":"20160115_000000_000000",') %>%   # hard coded because does not effect result
+    paste0('"endtime":"20160916_000000_000000",') %>%     #
     paste0('"maxresults":1000,') %>%
     paste0('"countsettings":{"count":false,"period":"DAY",') %>%
     paste0('"countconditionbyelement":[{"element":"', var, '",') %>%
