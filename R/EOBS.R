@@ -61,10 +61,10 @@ EOBS <- function(variable, period, area, grid, na.rm=TRUE,
 
 #' Import EOBS data from local file
 #' @note Should be merged with \code{\link{importEOBS}}
-#' @inheritParams importEOBS
+#' @inheritParams EOBS
 #' @param filename String containing the path to the ncdf file
 #' @export
-LocalImportEOBS <- function(variable, filename, period = NULL, area = NULL,
+EOBSLocal <- function(variable, filename, period = NULL, area = NULL,
                             na.rm=TRUE) {
   # Local sanitizing
   data <- GetEOBS(filename, variable, area, period, na.rm)

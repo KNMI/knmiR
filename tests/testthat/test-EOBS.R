@@ -14,6 +14,6 @@ expect_equal_to_reference(EOBS('tg', '2014', adm0, '0.50reg'), file="EOBSreferen
 expect_equal_to_reference(EOBS('rr', '2014', adm0, '0.50reg'), file="EOBSreference/output_rr.rds")
 expect_equal_to_reference(EOBS("tg", "2015-06-01", adm0, grid = "0.50reg"),
                           file = "EOBSreference/output_one_timestep.rds")
-expect_equal_to_reference(LocalImportEOBS("tg", "tg_0.50deg_reg_v12.0_plus_2015_ANN_avg.nc",
+expect_equal_to_reference(EOBSLocal("tg", "tg_0.50deg_reg_v12.0_plus_2015_ANN_avg.nc",
                                           "2000/2015", adm0),
                           file = "EOBSreference/output_local.rds")
