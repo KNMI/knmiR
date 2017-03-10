@@ -20,6 +20,8 @@ data.table
 Extract data from KIS
 }
 \examples{
+\dontrun{
  KIS('TG', '260_H', '2016')
- KIS('MOR_10', '260_A_a', '2016')
+ KIS('MOR_10', '260_A_a', '2016-02-01')
+}
 }
