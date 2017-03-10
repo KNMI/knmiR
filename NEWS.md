@@ -2,3 +2,4 @@
 
 - exporting ClipQuakes (fixed small bug related to object class)
 - added StudyArea
+- added examples to KIS
