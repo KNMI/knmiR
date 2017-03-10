@@ -15,15 +15,15 @@ KIS <- function(var, geoIdentifier, period) {
              paste(substitute(geoIdentifier)),
              paste(class(geoIdentifier)[1]))
   flog.debug("period={%s}", paste(period))
-  assertChoice(var, c("TG", "MOR_10", "TOW.FF_10M_10"))
+  assertChoice(var, c("TG", "MOR_10", "FF_10M_10"))
   if (var == "TG") {
     assertChoice(geoIdentifier, c("260_H", "310_H"))
   }
   if (var == "MOR_10") {
     assertChoice(geoIdentifier, c("260_A_a", "290_A_a"))
   }
-  if (var == "TOW.FF_10M_10") {
-    assertChoice(geoIdentifier, c("261_W_a"))
+  if (var == "FF_10M_10") {
+    assertChoice(geoIdentifier, c("260_W_a"))
   }
   tryCatch(xts::.parseISO8601(period),
            warning = function(cond) {
@@ -70,13 +70,10 @@ WriteKISRecipe <- function(var, locationID, period) {
     dataSeries <- "TOA"
     unit       <- "m"
   }
-  ##############kissapp not reachable at the moment :-( cannot verify the series and units#################
-  else if (var == 'TOW.FF_10M_10') {
-    dataSeries <- "?"
+  else if (var == 'FF_10M_10') {
+    dataSeries <- "TOW"
     unit       <- "m/s"
-  }
-  ######################################
-  else {
+  } else {
     stop(paste0("Variable ", var, " not defined."))
   }
 
