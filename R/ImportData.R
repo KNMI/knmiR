@@ -96,8 +96,6 @@ HomogenPrecipDates <- function(period) {
 #' @param path for saving data (if set to NULL data are always downloaded but not saved)
 #' @return data.table with rows being the single events
 #' @export
-#' @import data.table
-#' @importFrom RJSONIO fromJSON
 #' @examples
 #' data <- Earthquakes("induced", Groningen, "1990/2016")
 #' Description(data)
@@ -121,9 +119,9 @@ Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
 
 EarthquakesDownload <- function(type, area, period, call) {
   DownloadMessage("Earthquakes")
-  URL     <- SpecifyUrlEarthquakes(type)
-  rawJson <- RJSONIO::fromJSON(URL)
-  tmp     <- data.table::rbindlist(lapply(rawJson$events, GetJsonValues))
+  URL       <- SpecifyUrlEarthquakes(type)
+  jsonTable <- jsonlite::fromJSON(URL)$events
+  tmp       <- UpdateJsonTable(jsonTable)
   if (!is.null(area))   tmp <- ClipQuakes(tmp, area)
   if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period),]
   KnmiData(tmp, call, "Earthquakes")

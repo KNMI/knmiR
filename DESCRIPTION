@@ -16,7 +16,7 @@ Imports:
     data.table,
     xts,
     foreach,
-    RJSONIO,
+    jsonlite,
     rgdal,
     sp,
     ncdf4,

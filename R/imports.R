@@ -8,5 +8,6 @@
 #' @importFrom xts .parseISO8601
 #' @importFrom stringr str_replace_all
 #' @importFrom magrittr '%>%'
+#' @importFrom jsonlite fromJSON
 #' @import sp
 NULL
