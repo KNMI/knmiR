@@ -130,13 +130,13 @@ EarthquakesDownload <- function(type, area, period, call) {
 }
 
 #' Select earthquake sover area
+#'
 #' @param quakes data.table with earthquakes
 #' @param area SpatialPolygons
-#' @import data.table
-#' @import sp
+#' @export
 ClipQuakes <- function(quakes, area) {
   lat <- lon <- NULL
-  points <- quakes[, list(lon, lat)]
+  points <- as.data.frame(quakes[, list(lon, lat)])
   points <- sp::SpatialPoints(points, CRS("+proj=longlat +datum=WGS84"))
   points <- sp::spTransform(points, area@proj4string)
   index <- which(!is.na(sp::over(points, area)))

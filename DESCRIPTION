@@ -1,7 +1,7 @@
 Package: knmiR
 Type: Package
 Title: Import KNMI Data
-Version: 0.1.5.4
+Version: 0.1.5.5
 Authors@R: person("Martin", "Roth", email = "roth@knmi.nl",
                   role = c("aut", "cre"))
 Description: Import KNMI data into R.
@@ -26,7 +26,9 @@ Imports:
     magrittr,
     stringr
 LinkingTo: Rcpp
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1.9000
+Roxygen: list(markdown = FALSE)
 SystemRequirements: netcdf library version 4.1 or later
 Suggests:
-    testthat
+    testthat,
+    rgeos
