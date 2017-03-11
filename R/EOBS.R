@@ -221,8 +221,8 @@ removeOutsiders <- function(data, area) {
   lon <- lat <- pointID <- NULL
   setkey(data, lon, lat)
   data[, pointID:=.GRP, by=key(data)]
-  coords <- data[, .(lon = unique(lon),
-                     lat = unique(lat)), by = pointID][, .(lon, lat)]
+  coords <- data[, list(lon = unique(lon), lat = unique(lat)),
+                 by = pointID][, list(lon, lat)]
   points <- sp::SpatialPoints(coords, area@proj4string)
   index  <- data[, unique(pointID)][which(!is.na(sp::over(points,
                                                           as(area, 'SpatialPolygons'))))]

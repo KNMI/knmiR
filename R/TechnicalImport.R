@@ -8,6 +8,7 @@ ReadZippedFile <- function(url, colNames) {
 }
 
 UpdateJsonTable <- function(jsonTable) {
+  depth <- lat <- lon <- mag <- NULL
   tmp <- as.data.table(jsonTable)
   tmp[, date  := as.Date(date, tz = "CET")]
   tmp[, depth := as.numeric(depth)]

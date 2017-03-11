@@ -4,6 +4,7 @@ Title: Import KNMI Data
 Version: 0.1.5.6
 Authors@R: person("Martin", "Roth", email = "roth@knmi.nl",
                   role = c("aut", "cre"))
+Date: 2017-03-11
 Description: Import KNMI data into R.
 License: MIT + file LICENSE
 LazyData: TRUE
@@ -33,4 +34,5 @@ SystemRequirements: netcdf library version 4.1 or later
 Suggests:
     testthat,
     rgeos,
-    raster
+    raster,
+    curl
