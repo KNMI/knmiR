@@ -24,7 +24,8 @@ Imports:
     checkmate,
     futile.logger,
     magrittr,
-    stringr
+    stringr,
+    reshape2
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = FALSE)

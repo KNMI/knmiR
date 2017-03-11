@@ -60,7 +60,7 @@ EOBS <- function(variable, period, area, grid, na.rm=TRUE,
 }
 
 #' Import EOBS data from local file
-#' @note Should be merged with \code{\link{importEOBS}}
+#' @note Should be merged with \code{\link{EOBS}}
 #' @inheritParams EOBS
 #' @param filename String containing the path to the ncdf file
 #' @export
@@ -73,6 +73,7 @@ EOBSLocal <- function(variable, filename, period = NULL, area = NULL,
 
 GetEOBS <- function(filename, variable, area, period, na.rm) {
 
+  time <- day <- NULL
   result <- GetEobsBbox(filename, variable, sp::bbox(area), period)
   result <- CreateDataTableMelt(variable, result)
 
@@ -188,6 +189,7 @@ GetEobsBbox = function(filename, variableName, bbox, period){
 }
 
 CreateDataTableMelt <- function(variable, validValues) {
+  time <- lon <- lat <- pointID <- value <- V1 <- NULL
   if (length(validValues$time) > 1) {
     meltedValues <- reshape2::melt(validValues[[variable]],
                                    varnames=c("lon", "lat", "time"))
@@ -216,6 +218,7 @@ CreateDataTableMelt <- function(variable, validValues) {
 # @param data Data.table
 # @param area Valid area
 removeOutsiders <- function(data, area) {
+  lon <- lat <- pointID <- NULL
   setkey(data, lon, lat)
   data[, pointID:=.GRP, by=key(data)]
   coords <- data[, .(lon = unique(lon),
@@ -232,6 +235,7 @@ removeOutsiders <- function(data, area) {
 # Not for external use
 # @param data data.table
 removeNAvalues <- function(data) {
+  lon <- lat <- pointID <- NULL
   # We don't check if time is NA (it should not) but date * 0 is not defined
   data <- data[complete.cases(data[,!"time", with=FALSE]*0)]
   setkey(data, lon, lat)

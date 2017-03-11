@@ -23,5 +23,5 @@ package sp)}
 Import EOBS data from local file
 }
 \note{
-Should be merged with \code{\link{importEOBS}}
+Should be merged with \code{\link{EOBS}}
 }
