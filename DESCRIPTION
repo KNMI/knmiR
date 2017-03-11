@@ -1,9 +1,10 @@
 Package: knmiR
 Type: Package
 Title: Import KNMI Data
-Version: 0.1.5.5
+Version: 0.1.5.6
 Authors@R: person("Martin", "Roth", email = "roth@knmi.nl",
                   role = c("aut", "cre"))
+Date: 2017-03-11
 Description: Import KNMI data into R.
 License: MIT + file LICENSE
 LazyData: TRUE
@@ -16,7 +17,7 @@ Imports:
     data.table,
     xts,
     foreach,
-    RJSONIO,
+    jsonlite,
     rgdal,
     sp,
     ncdf4,
@@ -24,11 +25,14 @@ Imports:
     checkmate,
     futile.logger,
     magrittr,
-    stringr
+    stringr,
+    reshape2
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = FALSE)
 SystemRequirements: netcdf library version 4.1 or later
 Suggests:
     testthat,
-    rgeos
+    rgeos,
+    raster,
+    curl

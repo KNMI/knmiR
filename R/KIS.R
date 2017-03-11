@@ -44,17 +44,6 @@ SetRightColumnClass <- function(dt) {
   dt[, c(3) := as.numeric(eval(as.name(colName)))]
 }
 
-#' Python test template
-#' @param var variable
-#' @param geoIdentifier location
-#' @param period period
-#' @export
-KIStemplate <- function(var, geoIdentifier, period) {
-  data.table(date = as.Date(0 : 19, origin = as.Date("2015-01-01")),
-             loc  = geoIdentifier,
-             var = rnorm(20))
-}
-
 WriteKISRecipe <- function(var, locationID, period) {
   # period is not yet used in the recipe
   # max results does not seem to have any effect
