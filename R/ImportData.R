@@ -127,6 +127,29 @@ EarthquakesDownload <- function(type, area, period, call) {
   KnmiData(tmp, call, "Earthquakes")
 }
 
+EarthquakesDownload2 <- function(type, area, period, call) {
+  # DownloadMessage("Earthquakes")
+  queryUrl <- "http://rdsa.knmi.nl/fdsnws/event/1/query?"
+  queryUrl <- paste0(queryUrl, "starttime=2016-01-14T00%3A00%3A00&")
+  queryUrl <- paste0(queryUrl, "endtime=2017-04-13T00%3A00%3A00&")
+  queryUrl <- paste0(queryUrl, "minlatitude=40&maxlatitude=80&minlongitude=-5&maxlongitude=9&")
+  queryUrl <- paste0(queryUrl, "format=text&nodata=404&minmagnitude=0.5&limit=99999999")
+  tmp <- read.delim(queryUrl, sep = "|", stringsAsFactors = FALSE)
+  tmp <- as.data.table(tmp)
+  tmp[, Author := NULL]
+  tmp[, Catalog := NULL]
+  tmp[, Contributor := NULL]
+  tmp[, ContributorID := NULL]
+  tmp[, MagAuthor := NULL]
+  # oldDigits <- options(digits.secs = 2)
+  # tmp[, datetime := as.POSIXct(Time, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")+0.01]
+  # options(digits.secs = oldDigits)
+  setnames(tmp, c("Latitude", "Longitude", "Depth.km",
+                  "Magnitude", "EventLocationName"),
+           c("lat", "lon", "depth", "mag", "place"))
+  tmp
+}
+
 #' Select earthquake sover area
 #'
 #' @param quakes data.table with earthquakes
