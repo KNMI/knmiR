@@ -10,4 +10,5 @@
 #' @importFrom magrittr '%>%'
 #' @importFrom jsonlite fromJSON
 #' @import sp
+#' @importFrom tidyr separate
 NULL

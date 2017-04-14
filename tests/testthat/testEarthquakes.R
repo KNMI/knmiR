@@ -20,6 +20,13 @@ test_that("Earthquakes catalogue gives the same results", {
                             check.attributes=FALSE)
 })
 
+test_that("FDSN catalog", {
+  expect_equal_to_reference(EarthquakesDownload2("induced", Groningen,
+                                                 "2016-11", "call"),
+                            file = "./referenceOutput/FDSNcatalog.rds",
+                            check.attributes=FALSE)
+})
+
 test_that("Subsetting works", {
   quakesSub <- Earthquakes("induced", period = "2015", path = NULL)
   expect_false(any(is.na(quakesSub)))

@@ -127,27 +127,55 @@ EarthquakesDownload <- function(type, area, period, call) {
   KnmiData(tmp, call, "Earthquakes")
 }
 
-EarthquakesDownload2 <- function(type, area, period, call) {
+EarthquakesDownload2 <- function(type, area, period, call,
+                                minmag = NULL, maxmag = NULL, binMag = TRUE) {
+
+
   # DownloadMessage("Earthquakes")
   queryUrl <- "http://rdsa.knmi.nl/fdsnws/event/1/query?"
-  queryUrl <- paste0(queryUrl, "starttime=2016-01-14T00%3A00%3A00&")
-  queryUrl <- paste0(queryUrl, "endtime=2017-04-13T00%3A00%3A00&")
-  queryUrl <- paste0(queryUrl, "minlatitude=40&maxlatitude=80&minlongitude=-5&maxlongitude=9&")
-  queryUrl <- paste0(queryUrl, "format=text&nodata=404&minmagnitude=0.5&limit=99999999")
+  if (!is.null(period)) {
+    tmp <- xts::.parseISO8601(period, tz="GEZ")
+    queryUrl <- paste0(queryUrl, "starttime=",
+                     as.Date.character(tmp$first.time),
+                     "T00%3A00%3A00&")
+    queryUrl <- paste0(queryUrl, "endtime=",
+                     as.Date.character(tmp$last.time),
+                     "T23%3A59%3A59&")
+  }
+  # queryUrl <- paste0(queryUrl, "minlatitude=40&maxlatitude=80&minlongitude=-5&maxlongitude=9&")
+  if (type == "induced") {
+    queryUrl <- paste0(queryUrl, "magnitudetype=MLn&")
+  } else if (type == "tectonic") {
+    queryUrl <- paste0(queryUrl, "magnitudetype=MLs&")
+  } else {
+    stop("type not permitted so far")
+  }
+  queryUrl <- paste0(queryUrl, "format=text&nodata=404&")
+  if (!is.null(minmag)) {
+    queryUrl <- paste0(queryUrl, "minmagnitude=", minmag, "&")
+  }
+  if (!is.null(maxmag)) {
+    queryUrl <- paste0(queryUrl, "maxmagnitude=", maxmag, "&")
+  }
+  queryUrl <- paste0(queryUrl, "limit=99999999")
   tmp <- read.delim(queryUrl, sep = "|", stringsAsFactors = FALSE)
+  tmp <- separate(tmp, Time, c("date", "time"), sep = "T")
   tmp <- as.data.table(tmp)
+  tmp[, date := as.Date(date, tz = "UTC")]
+  tmp[, time := substr(time, 1, 8)]
   tmp[, Author := NULL]
   tmp[, Catalog := NULL]
   tmp[, Contributor := NULL]
   tmp[, ContributorID := NULL]
   tmp[, MagAuthor := NULL]
-  # oldDigits <- options(digits.secs = 2)
-  # tmp[, datetime := as.POSIXct(Time, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")+0.01]
-  # options(digits.secs = oldDigits)
   setnames(tmp, c("Latitude", "Longitude", "Depth.km",
-                  "Magnitude", "EventLocationName"),
-           c("lat", "lon", "depth", "mag", "place"))
-  tmp
+                  "Magnitude", "EventLocationName", "X.EventID", "MagType"),
+           c("lat", "lon", "depth", "mag", "place", "eventID", "magType"))
+  setcolorder(tmp, c("date", "time", "place", "magType",
+                     "lat", "lon", "depth", "mag", "eventID"))
+  if (binMag) tmp[, mag := round(mag, 1)]
+  if (!is.null(area))   tmp <- ClipQuakes(tmp, area)
+  KnmiData(tmp, call, "Earthquakes")
 }
 
 #' Select earthquake sover area
