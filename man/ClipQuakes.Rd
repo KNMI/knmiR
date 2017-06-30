@@ -2,15 +2,15 @@
 % Please edit documentation in R/ImportData.R
 \name{ClipQuakes}
 \alias{ClipQuakes}
-\title{Select earthquake sover area}
+\title{Select earthquakes over area}
 \usage{
 ClipQuakes(quakes, area)
 }
 \arguments{
 \item{quakes}{data.table with earthquakes}
 
-\item{area}{SpatialPolygons}
+\item{area}{SpatialPolygons or SpatialPolygonsDataFrame}
 }
 \description{
-Select earthquake sover area
+Select earthquakes over area
 }

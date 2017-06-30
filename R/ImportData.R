@@ -96,8 +96,6 @@ HomogenPrecipDates <- function(period) {
 #' @param path for saving data (if set to NULL data are always downloaded but not saved)
 #' @return data.table with rows being the single events
 #' @export
-#' @import data.table
-#' @importFrom RJSONIO fromJSON
 #' @examples
 #' data <- Earthquakes("induced", Groningen, "1990/2016")
 #' Description(data)
@@ -121,29 +119,49 @@ Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
 
 EarthquakesDownload <- function(type, area, period, call) {
   DownloadMessage("Earthquakes")
-  URL     <- SpecifyUrlEarthquakes(type)
-  rawJson <- RJSONIO::fromJSON(URL)
-  tmp     <- data.table::rbindlist(lapply(rawJson$events, GetJsonValues))
+  URL       <- SpecifyUrlEarthquakes(type)
+  jsonTable <- jsonlite::fromJSON(URL)$events
+  tmp       <- UpdateJsonTable(jsonTable)
   if (!is.null(area))   tmp <- ClipQuakes(tmp, area)
   if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period),]
   KnmiData(tmp, call, "Earthquakes")
 }
 
-#' Select earthquake sover area
+#' Select earthquakes over area
+#'
 #' @param quakes data.table with earthquakes
-#' @param area SpatialPolygons
-#' @import data.table
-#' @import sp
+#' @param area SpatialPolygons or SpatialPolygonsDataFrame
+#' @export
 ClipQuakes <- function(quakes, area) {
   lat <- lon <- NULL
-  points <- quakes[, list(lon, lat)]
+  points <- as.data.frame(quakes[, list(lon, lat)])
   points <- sp::SpatialPoints(points, CRS("+proj=longlat +datum=WGS84"))
-  points <- sp::spTransform(points, area@proj4string)
-  index <- which(!is.na(sp::over(points, area)))
+  index <- IsInArea(points, area)
   return(quakes[index, ])
 }
 
-
+#' Is point in area?
+#'
+#' @param points SpatialPoints
+#' @param area SpatialPolygons of SpatialPolygonsDataFrame
+#'
+#' @return logical indicating whether point is in area
+#' @export
+IsInArea <- function(points, area) {
+  points <- sp::spTransform(points, area@proj4string)
+  if (class(area) == "SpatialPolygons") {
+    index <- !is.na(sp::over(points, area))
+  } else if (class(area) == "SpatialPolygonsDataFrame") {
+    tmp <- sp::over(points, area)
+    index <- as.vector(!is.na(tmp[, 1, drop = FALSE]))
+  } else {
+    stop("Area should be of class `SpatialPolygons' or `SpatialPolygonsDataFrame'")
+  }
+  if (class(index) != "logical" & length(points) != length(index)) {
+    stop("index should be a logical of the same length as points")
+  }
+  index
+}
 
 
 

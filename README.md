@@ -2,11 +2,11 @@
 knmiR
 =====
 
-[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Build Status](https://travis-ci.org/MartinRoth/knmiR.png?branch=master)](https://travis-ci.org/MartinRoth/knmiR) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/MartinRoth/knmiR?branch=master&svg=true)](https://ci.appveyor.com/project/MartinRoth/knmiR) [![Coverage Status](https://img.shields.io/codecov/c/github/MartinRoth/knmiR/master.svg)](https://codecov.io/github/MartinRoth/knmiR?branch=master)
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Build Status](https://travis-ci.org/KNMI/knmiR.png?branch=master)](https://travis-ci.org/KNMI/knmiR) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/KNMI/knmiR?branch=master&svg=true)](https://ci.appveyor.com/project/KNMI/knmiR) [![Coverage Status](https://img.shields.io/codecov/c/github/KNMI/knmiR/master.svg)](https://codecov.io/github/KNMI/knmiR?branch=master)
 
 A package to access KNMI data within R.
 
-Please, if there are any issues of any kind, file an issue [here](https://github.com/MartinRoth/knmiR/issues).
+Please, if there are any issues of any kind, file an issue [here](https://github.com/KNMI/knmiR/issues).
 
 General
 -------
