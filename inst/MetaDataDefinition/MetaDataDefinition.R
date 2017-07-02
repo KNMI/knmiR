@@ -1,3 +1,4 @@
+# nolint start
 dataDescription <- list()
 dataDescription$Earthquakes <- "Induced Earthquakes"
 dataDescription$HomogenPrecip <- "Obtained from <a href='http://climexp.knmi.nl'>KNMI</a>
@@ -17,6 +18,7 @@ availableDataSets <- c("Earthquakes", "HomogenPrecip")
 stationMetaData <- data.table::fread("./inst/MetaDataDefinition/stationMetaData.csv",
                                      stringsAsFactors = FALSE)
 data.table::setkey(stationMetaData, stationId)
+# nolint end
 
 devtools::use_data(dataDescription, dataCitation, dataLicense,
                    availableDataSets, stationMetaData,

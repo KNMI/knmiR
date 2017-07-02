@@ -84,7 +84,8 @@ GetEOBS <- function(filename, variable, area, period, na.rm) {
   result[, year  := as.numeric(format(time, "%Y"))]
   result[, month := as.numeric(format(time, "%m"))]
   result[, day   := as.numeric(format(time, "%d"))]
-  setcolorder(result, c("time", "year", "month", "day", "lat", "lon", variable, "pointID"))
+  setcolorder(result, c("time", "year", "month", "day", "lat", "lon",
+                        variable, "pointID"))
   return(result)
 }
 
@@ -109,7 +110,7 @@ SanitizeInputEOBS <- function(variable, period, area, grid) {
              stop()
              },
            error = function(e) {
-             stop("Period should be either Numeric, timeBased or ISO-8601 style.")
+             stop("Period should be either Numeric, timeBased or ISO-8601 style.") # nolint
            })
   if (!class(area) %in% c("SpatialPolygons", "SpatialPolygonsDataFrame")) {
     stop("Area should be of class SpatialPolygons or SpatialPolygonsDataFrame.")
@@ -164,7 +165,7 @@ GetEobsBbox <- function(filename, variableName, bbox, period){
   # the bounding box
   validRange <- list()
   validRange$time <- which(findInterval(values$time,
-                                        periodBoundaries(values$time, period)) == 1)
+                                periodBoundaries(values$time, period)) == 1)
   validRange$lat  <- which(findInterval(values$lat, bbox[2, ]) == 1)
   validRange$lon  <- which(findInterval(values$lon, bbox[1, ]) == 1)
 
@@ -198,11 +199,11 @@ CreateDataTableMelt <- function(variable, validValues) {
   if (length(validValues$time) > 1) {
     meltedValues <- reshape2::melt(validValues[[variable]],
                                    varnames = c("lon", "lat", "time"))
-    result <- as.data.table(meltedValues)
+    result <- as.data.table(meltedValues) # nolint
   } else {
     meltedValues <- reshape2::melt(validValues[[variable]],
                                    varnames = c("lon", "lat"))
-    result <- as.data.table(meltedValues)
+    result <- as.data.table(meltedValues) # nolint
     result[, time := 1]
   }
   setkey(result, lon, lat)
@@ -230,7 +231,7 @@ removeOutsiders <- function(data, area) {
                  by = pointID][, list(lon, lat)]
   points <- sp::SpatialPoints(coords, area@proj4string)
   index  <- data[, unique(pointID)][which(!is.na(sp::over(points,
-                                                          as(area, "SpatialPolygons"))))]
+                                           as(area, "SpatialPolygons"))))]
   data <- data[pointID %in% index]
   setkey(data, lon, lat)
   return(data[, pointID := .GRP, by = key(data)])

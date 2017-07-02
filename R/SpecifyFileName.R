@@ -51,7 +51,8 @@ GetFullySpecifiedArea <- function(name, area = NULL) {
 GetMaxDomain <- function(name) {
   lon <- lat <- NULL
   switch (name,
-    "HomogenPrecip" = return(sp::bbox(sp::SpatialPoints(stationMetaData[, cbind(lon, lat)]))),
+    "HomogenPrecip" = return(sp::bbox(sp::SpatialPoints(stationMetaData[,
+                                                        cbind(lon, lat)]))),
     "InducedQuakes" = return(EarthquakesBoundaryBox),
     "TectonicQuakes" = return(EarthquakesBoundaryBox))
 }

@@ -99,7 +99,7 @@ ExecuteKISRecipe <- function(recipeName, period) {
 
   flog.info("Start data download.")
   download.file(url, destFile, method = "wget", quiet = T,
-                extra = c('--header="Content-Type:application/x-www-form-urlencoded"',
+                extra = c('--header="Content-Type:application/x-www-form-urlencoded"', # nolint
                           paste0('--post-file="', recipeName, '"')))
   flog.info("Download finished.")
 

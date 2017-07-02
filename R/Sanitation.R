@@ -24,7 +24,7 @@ SanitizeHomogenPrecip <- function(location, period, whichSet) {
              stop()
              },
            error = function(e) {
-             stop("Period should be either Numeric, timeBased or ISO-8601 style.")
+             stop("Period should be either Numeric, timeBased or ISO-8601 style.") # nolint
            })
   periodStart <- HomogenPrecipPeriodStart(period)
   isStationId <- FALSE
@@ -38,7 +38,7 @@ SanitizeHomogenPrecip <- function(location, period, whichSet) {
     }
   }
   if (!(isStationId | isArea)) {
-    stop("Location should be either valid station id or spatial polygon, with non-empty intersection.")
+    stop("Location should be either valid station id or spatial polygon, with non-empty intersection.") # nolint
   }
   if (isStationId) CheckStationId(location, periodStart)
   if (whichSet != "automatic") {
@@ -46,7 +46,9 @@ SanitizeHomogenPrecip <- function(location, period, whichSet) {
       lastDate <- as.Date(xts::.parseISO8601(period)$last.time)
       warning(paste0("Period is restricted to 1951-01-01/", lastDate))
     }
-    else if (periodStart > whichSet & isArea) message("You could consider more stations for the given period by choosing whichSelect='automatic'")
+    else if (periodStart > whichSet & isArea) {
+      message("You could consider more stations for the given period by choosing whichSelect='automatic'") # nolint
+    }
   }
 }
 

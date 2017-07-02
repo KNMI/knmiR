@@ -16,7 +16,7 @@ test_that("Earthquakes catalogue gives the same results", {
                             check.attributes = FALSE)
   expect_equal_to_reference(Earthquakes("induced", Groningen, "1980/2015-11-15",
                                         path = NULL),
-                            file = "./referenceOutput/outputQuakesGroningen.rds",
+                            file = "./referenceOutput/outputQuakesGroningen.rds", # nolint
                             check.attributes = FALSE)
 })
 
