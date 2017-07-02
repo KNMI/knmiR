@@ -9,7 +9,7 @@ HomogenizedPrecipitation <- function(stationId, periodStart=1910) {
   url <- SpecifyUrlForHomogenPrecipZipped(stationId, periodStart)
   precip <- data.table(ReadZippedFile(url, c("date", "pr")))
   precip[, stationId := stationId]
-  precip[, date := as.Date(paste(date), '%Y%m%d')]
+  precip[, date := as.Date(paste(date), "%Y%m%d")]
   setcolorder(precip, c("date", "stationId", "pr"))
   return(precip)
 }
@@ -54,11 +54,11 @@ PrecipitationDownload <- function(location, period, whichSet, call) {
       location <- sp::spTransform(location, CRS(standardCRSstring))
     }
     tmpMetaData <- stationMetaData
-    if (periodStart==1910 | whichSet==1910) {
-      tmpMetaData <- tmpMetaData[longRecord==TRUE, ]
+    if (periodStart == 1910 | whichSet == 1910) {
+      tmpMetaData <- tmpMetaData[longRecord == TRUE, ]
     }
     stationLocations <- sp::SpatialPoints(tmpMetaData[, list(lon, lat)], CRS(standardCRSstring))
-    tmpMetaData[, inArea := sp::over(stationLocations, as(location, 'SpatialPolygons'))]
+    tmpMetaData[, inArea := sp::over(stationLocations, as(location, "SpatialPolygons"))]
     tmpMetaData <- na.omit(tmpMetaData)
     tmp <- foreach(i = 1 : tmpMetaData[, .N], .combine = "rbind") %do% {
       tmpStart <- ifelse(tmpMetaData[i, longRecord] & whichSet != 1951, 1910, 1951)
@@ -66,7 +66,7 @@ PrecipitationDownload <- function(location, period, whichSet, call) {
     }
   }
   setkey(tmp, date)
-  tmp <- tmp[date %in% HomogenPrecipDates(period),]
+  tmp <- tmp[date %in% HomogenPrecipDates(period), ]
   setkey(tmp, stationId, date)
   KnmiData(tmp, call, "HomogenPrecip")
 }
@@ -85,7 +85,7 @@ DownloadMessageContent <- function(name) {
 #' @importFrom xts .subset.xts
 #' @importFrom xts .parseISO8601
 HomogenPrecipDates <- function(period) {
-  tmp <- xts::.parseISO8601(period, tz="GEZ")
+  tmp <- xts::.parseISO8601(period, tz = "GEZ")
   return(seq.Date(as.Date(tmp$first.time), as.Date(tmp$last.time), by = "day"))
 }
 
@@ -109,7 +109,7 @@ Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
     fileName <- SpecifyFileNameEarthquakes(type, path, area, period)
     if (!file.exists(fileName)) {
       tmp <- EarthquakesDownload(type, area, period, cl)
-      saveRDS(tmp, file=fileName)
+      saveRDS(tmp, file = fileName)
     } else {
       tmp <- readRDS(fileName)
     }
@@ -123,7 +123,7 @@ EarthquakesDownload <- function(type, area, period, call) {
   jsonTable <- jsonlite::fromJSON(URL)$events
   tmp       <- UpdateJsonTable(jsonTable)
   if (!is.null(area))   tmp <- ClipQuakes(tmp, area)
-  if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period),]
+  if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period), ]
   KnmiData(tmp, call, "Earthquakes")
 }
 

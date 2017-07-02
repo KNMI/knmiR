@@ -23,4 +23,4 @@
 #' Earthquakes maximal domain
 #' @format bbox i.e. 2*2 matrix
 #'
-EarthquakesBoundaryBox <- matrix(c(2, 50, 9, 55), nrow=2)
+EarthquakesBoundaryBox <- matrix(c(2, 50, 9, 55), nrow = 2)

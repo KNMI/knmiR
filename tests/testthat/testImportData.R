@@ -23,9 +23,9 @@ test_that("Station id output", {
   precipDeBilt <- HomogenPrecip(550, "1911/1912", path = NULL)
   expect_equal(precipDeBilt[1, date], as.Date("1911-01-01"))
   expect_equal(precipDeBilt[.N, date], as.Date("1912-12-31"))
-  expect_equal_to_reference(precipDeBilt[1 : 10,],
+  expect_equal_to_reference(precipDeBilt[1 : 10, ],
                             file = "./referenceOutput/outputDeBilt.rds",
-                            check.attributes=FALSE)
+                            check.attributes = FALSE)
   expect_equal_to_reference(License(precipDeBilt), "./referenceOutput/HomogenizedPrecipitationLicense.rds")
   expect_true(is.call(Call(precipDeBilt)))
   expect_error(HomogenPrecip(10, 1910, 1950), "whichSet should be either 1910, 1951, or 'automatic'")
@@ -35,12 +35,12 @@ test_that("Station id output", {
   expect_warning(HomogenPrecip(10, "1945/1962", 1951, path = NULL), "Period is restricted to 1951-01-01/1962-12-31")
   expect_error(HomogenPrecip(09, 1910), "Location should be either valid station id or spatial polygon, with non-empty intersection.")
   expect_error(HomogenPrecip(17, "1945/1962", 1910), "not available for periodStart 1910")
-  expect_equal_to_reference(HomogenPrecip(17, "1951/1955", path = NULL)[1 : 10,],
+  expect_equal_to_reference(HomogenPrecip(17, "1951/1955", path = NULL)[1 : 10, ],
                             file = "./referenceOutput/outputDenBurg.rds",
-                            check.attributes=FALSE)
-  expect_equal_to_reference(HomogenPrecip(10, "1910/1920", path = NULL)[1 : 10,],
+                            check.attributes = FALSE)
+  expect_equal_to_reference(HomogenPrecip(10, "1910/1920", path = NULL)[1 : 10, ],
                             file = "./referenceOutput/outputHollum.rds",
-                            check.attributes=FALSE)
+                            check.attributes = FALSE)
 })
 
 context("Area results")
@@ -57,10 +57,10 @@ test_that("Area output", {
   expect_error(HomogenPrecip(ValleiEnVeluweDamaged, 1910), "No transformation possible from NA reference system")
   expect_equal_to_reference(precipVallei[1 : 10, ],
                             file = "./referenceOutput/HomogenPrecipValleiEnVeluwe.rds",
-                            check.attributes=FALSE)
+                            check.attributes = FALSE)
   expect_equal_to_reference(tail(precipVallei),
                             file = "./referenceOutput/HomogenPrecipValleiEnVeluweTail.rds",
-                            check.attributes=FALSE)
+                            check.attributes = FALSE)
   expect_equal(precipVallei[, length(unique(stationId))], 8)
   expect_equal(precipVallei2[, length(unique(stationId))], 21)
   expect_equal(precipVallei3[, length(unique(stationId))], 8)
@@ -68,5 +68,5 @@ test_that("Area output", {
   expect_equal(precipVallei[.N, date], as.Date("1912-12-31"))
   expect_equal_to_reference(HomogenPrecip(ValleiEnVeluweTransformed, "1911/1912", path = NULL)[1 : 10, ],
                             file = "./referenceOutput/HomogenPrecipValleiEnVeluwe.rds",
-                            check.attributes=FALSE)
+                            check.attributes = FALSE)
 })

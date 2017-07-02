@@ -95,12 +95,13 @@ GetEOBS <- function(filename, variable, area, period, na.rm) {
 # @param area Area
 # @param grid Grid
 SanitizeInputEOBS <- function(variable, period, area, grid) {
-  if (variable %in% c('tg_stderr', 'tn_stderr', 'tx_stderr', 'pp_stderr',
-                      'rr_stderr')) {
+  if (variable %in% c("tg_stderr", "tn_stderr", "tx_stderr", "pp_stderr",
+                      "rr_stderr")) {
     stop("Standard error of variables not yet implemented.")
   }
-  else if (!variable %in% c('tg', 'tn', "tx", "pp", 'rr', 'tg_stderr', 'tn_stderr',
-                            'tx_stderr', 'pp_stderr', 'rr_stderr')) {
+  else if (!variable %in% c("tg", "tn", "tx", "pp", "rr", "tg_stderr",
+                            "tn_stderr", "tx_stderr", "pp_stderr",
+                            "rr_stderr")) {
     stop(paste("Variable", variable, "not known."))
   }
   tryCatch(xts::.parseISO8601(period),
@@ -110,7 +111,7 @@ SanitizeInputEOBS <- function(variable, period, area, grid) {
            error = function(e) {
              stop("Period should be either Numeric, timeBased or ISO-8601 style.")
            })
-  if (!class(area) %in% c("SpatialPolygons","SpatialPolygonsDataFrame")) {
+  if (!class(area) %in% c("SpatialPolygons", "SpatialPolygonsDataFrame")) {
     stop("Area should be of class SpatialPolygons or SpatialPolygonsDataFrame.")
   }
   if (!grid %in% c("0.25reg", "0.50reg", "0.25rot", "0.50rot")) {
@@ -122,25 +123,25 @@ SanitizeInputEOBS <- function(variable, period, area, grid) {
 # @param variableName Variable name
 # @param grid Grid
 specifyURL <- function(variableName, grid) {
-  url <- 'http://opendap.knmi.nl/knmi/thredds/dodsC/e-obs_'
-  if (grid=="0.50reg") {
-    url <- paste(url, '0.50regular/', sep="")
-    ending <- '_0.50deg_reg_v15.0.nc'
+  url <- "http://opendap.knmi.nl/knmi/thredds/dodsC/e-obs_"
+  if (grid == "0.50reg") {
+    url <- paste0(url, "0.50regular/")
+    ending <- "_0.50deg_reg_v15.0.nc"
   }
-  if (grid=="0.25reg") {
-    url <- paste(url, '0.25regular/', sep="")
-    ending <- '_0.25deg_reg_v15.0.nc'
+  if (grid == "0.25reg") {
+    url <- paste0(url, "0.25regular/")
+    ending <- "_0.25deg_reg_v15.0.nc"
   }
-  url <- paste(url, variableName, ending, sep="")
+  url <- paste(url, variableName, ending, sep = "")
   return(url)
 }
 
 # Get the EOBS netcdf dimensions
 GetEobsDimensions <- function(ncdfConnection) {
   values <- list()
-  values$lat         <- ncdf4::ncvar_get(ncdfConnection, varid = 'latitude')
-  values$lon         <- ncdf4::ncvar_get(ncdfConnection, varid = 'longitude')
-  values$time        <- ncdf4::ncvar_get(ncdfConnection, varid = 'time')
+  values$lat         <- ncdf4::ncvar_get(ncdfConnection, varid = "latitude")
+  values$lon         <- ncdf4::ncvar_get(ncdfConnection, varid = "longitude")
+  values$time        <- ncdf4::ncvar_get(ncdfConnection, varid = "time")
   return(values)
 }
 
@@ -163,14 +164,14 @@ GetEobsBbox <- function(filename, variableName, bbox, period){
   # the bounding box
   validRange <- list()
   validRange$time <- which(findInterval(values$time,
-                                        periodBoundaries(values$time, period))==1)
-  validRange$lat  <- which(findInterval(values$lat, bbox[2,])==1)
-  validRange$lon  <- which(findInterval(values$lon, bbox[1,])==1)
+                                        periodBoundaries(values$time, period)) == 1)
+  validRange$lat  <- which(findInterval(values$lat, bbox[2, ]) == 1)
+  validRange$lon  <- which(findInterval(values$lon, bbox[1, ]) == 1)
 
   # Make a selection of indices which fall in our subsetting window
   # E.g. translate degrees to indices of arrays.
   determineCount <- function(x) {
-    return(c(x[1], tail(x,1) - x[1] + 1))
+    return(c(x[1], tail(x, 1) - x[1] + 1))
   }
   count <- rbind(determineCount(validRange$lon),
                  determineCount(validRange$lat),
@@ -182,10 +183,10 @@ GetEobsBbox <- function(filename, variableName, bbox, period){
   validValues$lat             <- values$lat[validRange$lat]
   validValues$lon             <- values$lon[validRange$lon]
   validValues$time            <- as.Date(values$time[validRange$time],
-                                         origin="1950-01-01")
+                                         origin = "1950-01-01")
   validValues[[variableName]] <- ncdf4::ncvar_get(dataset, variableName,
-                                                  start=count[, 1],
-                                                  count=count[, 2])
+                                                  start = count[, 1],
+                                                  count = count[, 2])
 
   # Close the data set and return data.table created from the valid values
   ncdf4::nc_close(dataset)
@@ -196,18 +197,18 @@ CreateDataTableMelt <- function(variable, validValues) {
   time <- lon <- lat <- pointID <- value <- V1 <- NULL
   if (length(validValues$time) > 1) {
     meltedValues <- reshape2::melt(validValues[[variable]],
-                                   varnames=c("lon", "lat", "time"))
+                                   varnames = c("lon", "lat", "time"))
     result <- as.data.table(meltedValues)
   } else {
     meltedValues <- reshape2::melt(validValues[[variable]],
-                                   varnames=c("lon", "lat"))
+                                   varnames = c("lon", "lat"))
     result <- as.data.table(meltedValues)
     result[, time := 1]
   }
   setkey(result, lon, lat)
-  result[, pointID:=.GRP, by = key(result)]
+  result[, pointID := .GRP, by = key(result)]
   setkey(result, pointID)
-  index <- result[, !all(is.na(value)), by = pointID][V1==TRUE, pointID]
+  index <- result[, !all(is.na(value)), by = pointID][V1 == TRUE, pointID]
   result <- result[pointID %in% index, ]
   result[, pointID := NULL]
   result[, lon := validValues$lon[lon]]
@@ -224,15 +225,15 @@ CreateDataTableMelt <- function(variable, validValues) {
 removeOutsiders <- function(data, area) {
   lon <- lat <- pointID <- NULL
   setkey(data, lon, lat)
-  data[, pointID:=.GRP, by=key(data)]
+  data[, pointID := .GRP, by = key(data)]
   coords <- data[, list(lon = unique(lon), lat = unique(lat)),
                  by = pointID][, list(lon, lat)]
   points <- sp::SpatialPoints(coords, area@proj4string)
   index  <- data[, unique(pointID)][which(!is.na(sp::over(points,
-                                                          as(area, 'SpatialPolygons'))))]
+                                                          as(area, "SpatialPolygons"))))]
   data <- data[pointID %in% index]
   setkey(data, lon, lat)
-  return(data[, pointID:=.GRP, by=key(data)])
+  return(data[, pointID := .GRP, by = key(data)])
 }
 
 # Removes all rows with NAs
@@ -241,16 +242,16 @@ removeOutsiders <- function(data, area) {
 removeNAvalues <- function(data) {
   lon <- lat <- pointID <- NULL
   # We don't check if time is NA (it should not) but date * 0 is not defined
-  data <- data[complete.cases(data[,!"time", with=FALSE]*0)]
+  data <- data[complete.cases(data[, !"time", with = FALSE] * 0)]
   setkey(data, lon, lat)
-  data[, pointID:=.GRP, by=key(data)]
+  data[, pointID := .GRP, by = key(data)]
 }
 
 # To define the valid range
 # @param time Time
 # @param period Period
 periodBoundaries <- function(time, period) {
-  xts <- xts::xts(time, as.Date(time, origin="1950-01-01"))
+  xts <- xts::xts(time, as.Date(time, origin = "1950-01-01"))
   interval <- range(as.numeric(xts[period]))
   interval[2] <- interval[2] + 1
   return(interval)

@@ -1,10 +1,7 @@
 linters: with_defaults(
     camel_case_linter = NULL, # 283
-    single_quotes_linter = NULL, # 71
     line_length_linter = NULL, # 64
-    infix_spaces_linter = NULL, # 61
     commented_code_linter = NULL, # 27
-    commas_linter = NULL, # 15
     multiple_dots_linter = NULL, # 3
     NULL
   )

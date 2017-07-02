@@ -20,7 +20,7 @@ KnmiData <- function(data, call, type) {
             version     = utils::packageVersion("knmiR"),
             timeStamp   = utils::timestamp(format(Sys.time(),
                                                   "%Y-%m-%d %H:%M:%S"),
-                                           quiet=TRUE),
+                                           quiet = TRUE),
             class       = append("KnmiData", class(data)))
 }
 
