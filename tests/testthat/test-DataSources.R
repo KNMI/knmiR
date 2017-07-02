@@ -13,4 +13,3 @@ test_that("Actuality", {
   expect_gt(recentQuakes[, .N], 0)
   expect_match(License(recentQuakes), "Open data")
 })
-

@@ -91,7 +91,8 @@ ExecuteKISRecipe <- function(recipeName, period) {
   parsedPeriod <- .parseISO8601(period)
   url <- 'http://kisapp.knmi.nl:8080/servlet/download/table/'
   url <- paste0(url, CorrectDataFormat(parsedPeriod$first.time + 1),
-                '/', CorrectDataFormat(parsedPeriod$last.time + 1), '/CSV')
+                '/', CorrectDataFormat(parsedPeriod$last.time + 1),
+                '/', 'CSV')
   destFile <- 'KIStable.csv'
 
   flog.info("Start data download.")
@@ -115,4 +116,3 @@ ExecuteKISRecipe <- function(recipeName, period) {
                      })
   return(result)
 }
-

@@ -104,7 +104,9 @@ SanitizeInputEOBS <- function(variable, period, area, grid) {
     stop(paste("Variable", variable, "not known."))
   }
   tryCatch(xts::.parseISO8601(period),
-           warning = function(e) {stop()},
+           warning = function(e) {
+             stop()
+             },
            error = function(e) {
              stop("Period should be either Numeric, timeBased or ISO-8601 style.")
            })
@@ -149,10 +151,10 @@ GetEobsDimensions <- function(ncdfConnection) {
 # @param period Time period
 # @note This function is based on the script by Maarten Plieger
 # https://publicwiki.deltares.nl/display/OET/OPeNDAP+subsetting+with+R
-GetEobsBbox = function(filename, variableName, bbox, period){
+GetEobsBbox <- function(filename, variableName, bbox, period){
 
   # Open the dataset
-  dataset = ncdf4::nc_open(filename)
+  dataset <- ncdf4::nc_open(filename)
 
   # Get lon and lat variables, which are the dimensions of depth.
   values <- GetEobsDimensions(dataset)
@@ -167,7 +169,9 @@ GetEobsBbox = function(filename, variableName, bbox, period){
 
   # Make a selection of indices which fall in our subsetting window
   # E.g. translate degrees to indices of arrays.
-  determineCount <- function(x) {return(c(x[1], tail(x,1) - x[1] + 1))}
+  determineCount <- function(x) {
+    return(c(x[1], tail(x,1) - x[1] + 1))
+  }
   count <- rbind(determineCount(validRange$lon),
                  determineCount(validRange$lat),
                  determineCount(validRange$time))

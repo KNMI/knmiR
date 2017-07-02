@@ -54,7 +54,7 @@ PrecipitationDownload <- function(location, period, whichSet, call) {
       location <- sp::spTransform(location, CRS(standardCRSstring))
     }
     tmpMetaData <- stationMetaData
-    if(periodStart==1910 | whichSet==1910) {
+    if (periodStart==1910 | whichSet==1910) {
       tmpMetaData <- tmpMetaData[longRecord==TRUE, ]
     }
     stationLocations <- sp::SpatialPoints(tmpMetaData[, list(lon, lat)], CRS(standardCRSstring))
@@ -162,6 +162,3 @@ IsInArea <- function(points, area) {
   }
   index
 }
-
-
-

@@ -70,4 +70,3 @@ test_that("Area output", {
                             file = "./referenceOutput/HomogenPrecipValleiEnVeluwe.rds",
                             check.attributes=FALSE)
 })
-

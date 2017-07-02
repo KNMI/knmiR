@@ -16,9 +16,13 @@ SanitizeInput <- function(type, ...) {
 #' @importFrom xts .parseISO8601
 SanitizeHomogenPrecip <- function(location, period, whichSet) {
   stationId <- NULL
-  if(!whichSet %in% c(1910, 1951, "automatic")) stop("whichSet should be either 1910, 1951, or 'automatic'")
+  if (!whichSet %in% c(1910, 1951, "automatic")) {
+    stop("whichSet should be either 1910, 1951, or 'automatic'")
+  }
   tryCatch(xts::.parseISO8601(period),
-           warning = function(e) {stop()},
+           warning = function(e) {
+             stop()
+             },
            error = function(e) {
              stop("Period should be either Numeric, timeBased or ISO-8601 style.")
            })
@@ -29,9 +33,13 @@ SanitizeHomogenPrecip <- function(location, period, whichSet) {
   }
   isArea      <- extends(class(location), "SpatialPolygons")
   if (isArea) {
-    if(is.na(location@proj4string@projargs)) stop("No transformation possible from NA reference system")
+    if (is.na(location@proj4string@projargs)) {
+      stop("No transformation possible from NA reference system")
+    }
   }
-  if(!(isStationId | isArea)) stop("Location should be either valid station id or spatial polygon, with non-empty intersection.")
+  if (!(isStationId | isArea)) {
+    stop("Location should be either valid station id or spatial polygon, with non-empty intersection.")
+  }
   if (isStationId) CheckStationId(location, periodStart)
   if (whichSet != "automatic") {
     if (periodStart < whichSet) {
