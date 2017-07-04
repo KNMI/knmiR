@@ -11,9 +11,11 @@ Earthquakes(type = "induced", area = NULL, period = NULL, path = "")
 
 \item{area}{Inheriting from spatial polygon}
 
-\item{period}{Either numeric, timeBased or ISO-8601 style (see \code{\link[xts]{.subset.xts}})}
+\item{period}{Either numeric, timeBased or ISO-8601 style
+(see \code{\link[xts]{.subset.xts}})}
 
-\item{path}{for saving data (if set to NULL data are always downloaded but not saved)}
+\item{path}{for saving data (if set to NULL data are always downloaded
+but not saved)}
 }
 \value{
 data.table with rows being the single events

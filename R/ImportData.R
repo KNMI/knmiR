@@ -9,7 +9,7 @@ HomogenizedPrecipitation <- function(stationId, periodStart=1910) {
   url <- SpecifyUrlForHomogenPrecipZipped(stationId, periodStart)
   precip <- data.table(ReadZippedFile(url, c("date", "pr")))
   precip[, stationId := stationId]
-  precip[, date := as.Date(paste(date), '%Y%m%d')]
+  precip[, date := as.Date(paste(date), "%Y%m%d")]
   setcolorder(precip, c("date", "stationId", "pr"))
   return(precip)
 }
@@ -28,7 +28,9 @@ HomogenizedPrecipitation <- function(stationId, periodStart=1910) {
 HomogenPrecip <- function(location, period, whichSet = "automatic", path="") {
   cl <- match.call()
   SanitizeInput(type = "HomogenPrecip", location, period, whichSet)
-  if (is.null(path)) tmp <- PrecipitationDownload(location, period, whichSet, cl)
+  if (is.null(path)) {
+    tmp <- PrecipitationDownload(location, period, whichSet, cl)
+  }
   else {
     fileName <- SpecifyFileName("HomogenPrecip", path, location, period)
     if (!file.exists(fileName)) {
@@ -46,7 +48,8 @@ PrecipitationDownload <- function(location, period, whichSet, call) {
   DownloadMessage("HomogenPrecip")
   periodStart <- HomogenPrecipPeriodStart(period)
   if (is.numeric(location)) {
-    tmpStart <- ifelse(stationMetaData[list(location), longRecord] & whichSet != 1951, 1910, 1951)
+    tmpStart <- ifelse(stationMetaData[list(location), longRecord] &
+                         whichSet != 1951, 1910, 1951)
     tmp <- HomogenizedPrecipitation(location, tmpStart)
   } else {
     standardCRSstring <- "+proj=longlat +ellps=WGS84"
@@ -54,19 +57,22 @@ PrecipitationDownload <- function(location, period, whichSet, call) {
       location <- sp::spTransform(location, CRS(standardCRSstring))
     }
     tmpMetaData <- stationMetaData
-    if(periodStart==1910 | whichSet==1910) {
-      tmpMetaData <- tmpMetaData[longRecord==TRUE, ]
+    if (periodStart == 1910 | whichSet == 1910) {
+      tmpMetaData <- tmpMetaData[longRecord == TRUE, ]
     }
-    stationLocations <- sp::SpatialPoints(tmpMetaData[, list(lon, lat)], CRS(standardCRSstring))
-    tmpMetaData[, inArea := sp::over(stationLocations, as(location, 'SpatialPolygons'))]
+    stationLocations <- sp::SpatialPoints(tmpMetaData[, list(lon, lat)],
+                                          CRS(standardCRSstring))
+    tmpMetaData[, inArea := sp::over(stationLocations,
+                                     as(location, "SpatialPolygons"))]
     tmpMetaData <- na.omit(tmpMetaData)
     tmp <- foreach(i = 1 : tmpMetaData[, .N], .combine = "rbind") %do% {
-      tmpStart <- ifelse(tmpMetaData[i, longRecord] & whichSet != 1951, 1910, 1951)
+      tmpStart <- ifelse(tmpMetaData[i, longRecord] &
+                           whichSet != 1951, 1910, 1951)
       HomogenizedPrecipitation(tmpMetaData[i, stationId], tmpStart)
     }
   }
   setkey(tmp, date)
-  tmp <- tmp[date %in% HomogenPrecipDates(period),]
+  tmp <- tmp[date %in% HomogenPrecipDates(period), ]
   setkey(tmp, stationId, date)
   KnmiData(tmp, call, "HomogenPrecip")
 }
@@ -76,24 +82,28 @@ DownloadMessage <- function(name) {
 }
 
 DownloadMessageContent <- function(name) {
+  urlQuake <- "www.knmi.nl/kennis-en-datacentrum/dataset/aardbevingscatalogus"
+  urlClimExp <- "www.climexp.knmi.nl"
   switch(name,
-         "Earthquakes" = return("www.knmi.nl/kennis-en-datacentrum/dataset/aardbevingscatalogus"),
-         "HomogenPrecip" = return("www.climexp.knmi.nl")
+         "Earthquakes" = return(urlQuake),
+         "HomogenPrecip" = return(urlClimExp)
   )
 }
 
 #' @importFrom xts .subset.xts
 #' @importFrom xts .parseISO8601
 HomogenPrecipDates <- function(period) {
-  tmp <- xts::.parseISO8601(period, tz="GEZ")
+  tmp <- xts::.parseISO8601(period, tz = "GEZ")
   return(seq.Date(as.Date(tmp$first.time), as.Date(tmp$last.time), by = "day"))
 }
 
 #' Loads the KNMI earthquake catalogue
 #' @param type Type of catalogue c('induced', 'tectonic')
 #' @param area Inheriting from spatial polygon
-#' @param period Either numeric, timeBased or ISO-8601 style (see \code{\link[xts]{.subset.xts}})
-#' @param path for saving data (if set to NULL data are always downloaded but not saved)
+#' @param period Either numeric, timeBased or ISO-8601 style
+#'   (see \code{\link[xts]{.subset.xts}})
+#' @param path for saving data (if set to NULL data are always downloaded
+#'   but not saved)
 #' @return data.table with rows being the single events
 #' @export
 #' @examples
@@ -109,7 +119,7 @@ Earthquakes <- function(type="induced", area = NULL, period = NULL, path = "") {
     fileName <- SpecifyFileNameEarthquakes(type, path, area, period)
     if (!file.exists(fileName)) {
       tmp <- EarthquakesDownload(type, area, period, cl)
-      saveRDS(tmp, file=fileName)
+      saveRDS(tmp, file = fileName)
     } else {
       tmp <- readRDS(fileName)
     }
@@ -123,7 +133,7 @@ EarthquakesDownload <- function(type, area, period, call) {
   jsonTable <- jsonlite::fromJSON(URL)$events
   tmp       <- UpdateJsonTable(jsonTable)
   if (!is.null(area))   tmp <- ClipQuakes(tmp, area)
-  if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period),]
+  if (!is.null(period)) tmp <- tmp[date %in% HomogenPrecipDates(period), ]
   KnmiData(tmp, call, "Earthquakes")
 }
 
@@ -155,13 +165,10 @@ IsInArea <- function(points, area) {
     tmp <- sp::over(points, area)
     index <- as.vector(!is.na(tmp[, 1, drop = FALSE]))
   } else {
-    stop("Area should be of class `SpatialPolygons' or `SpatialPolygonsDataFrame'")
+    stop("Area should be of class `SpatialPolygons' or `SpatialPolygonsDataFrame'") # nolint
   }
   if (class(index) != "logical" & length(points) != length(index)) {
     stop("index should be a logical of the same length as points")
   }
   index
 }
-
-
-

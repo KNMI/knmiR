@@ -8,16 +8,16 @@ test_that("Corrected input", {
 
 test_that("Earthquakes catalogue gives the same results", {
   quakes <- Earthquakes("induced", NULL, "1980/2015-11-15", path = NULL)
-  tectonicQuakes <- Earthquakes('tectonic', path = NULL)
-  expect_match(class(quakes)[1],"KnmiData")
-  expect_true(nrow(quakes)>1210)
-  expect_true(nrow(tectonicQuakes)>=1339)
+  tectonicQuakes <- Earthquakes("tectonic", path = NULL)
+  expect_match(class(quakes)[1], "KnmiData")
+  expect_true(nrow(quakes) > 1210)
+  expect_true(nrow(tectonicQuakes) >= 1339)
   expect_equal_to_reference(quakes, file = "./referenceOutput/outputQuakes.rds",
-                            check.attributes=FALSE)
+                            check.attributes = FALSE)
   expect_equal_to_reference(Earthquakes("induced", Groningen, "1980/2015-11-15",
                                         path = NULL),
-                            file = "./referenceOutput/outputQuakesGroningen.rds",
-                            check.attributes=FALSE)
+                            file = "./referenceOutput/outputQuakesGroningen.rds", # nolint
+                            check.attributes = FALSE)
 })
 
 test_that("Subsetting works", {

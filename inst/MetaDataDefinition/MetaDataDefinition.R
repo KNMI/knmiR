@@ -1,3 +1,4 @@
+# nolint start
 dataDescription <- list()
 dataDescription$Earthquakes <- "Induced Earthquakes"
 dataDescription$HomogenPrecip <- "Obtained from <a href='http://climexp.knmi.nl'>KNMI</a>
@@ -10,13 +11,15 @@ dataCitation$HomogenPrecip <- strwrap("Please cite as Buishand, T.A., G. DeMarti
 
 dataLicense <- list()
 dataLicense$Earthquakes <- "Open data"
-dataLicense$HomogenPrecip <- strwrap('THESE DATA CAN BE USED FREELY PROVIDED THAT THE FOLLOWING SOURCE IS ACKNOWLEDGED: ROYAL NETHERLANDS METEOROLOGICAL INSTITUTE')
+dataLicense$HomogenPrecip <- strwrap("THESE DATA CAN BE USED FREELY PROVIDED THAT THE FOLLOWING SOURCE IS ACKNOWLEDGED: ROYAL NETHERLANDS METEOROLOGICAL INSTITUTE")
 
 availableDataSets <- c("Earthquakes", "HomogenPrecip")
 
-stationMetaData <- data.table::fread("./inst/MetaDataDefinition/stationMetaData.csv", stringsAsFactors = FALSE)
+stationMetaData <- data.table::fread("./inst/MetaDataDefinition/stationMetaData.csv",
+                                     stringsAsFactors = FALSE)
 data.table::setkey(stationMetaData, stationId)
+# nolint end
 
 devtools::use_data(dataDescription, dataCitation, dataLicense,
                    availableDataSets, stationMetaData,
-                   internal=TRUE, overwrite=TRUE)
+                   internal = TRUE, overwrite = TRUE)

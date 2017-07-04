@@ -1,10 +1,10 @@
 Package: knmiR
 Type: Package
 Title: Import KNMI Data
-Version: 0.1.6.0
+Version: 0.1.6.1
 Authors@R: person("Martin", "Roth", email = "roth@knmi.nl",
                   role = c("aut", "cre"))
-Date: 2017-06-30
+Date: 2017-07-02
 Description: Import KNMI data into R.
 License: MIT + file LICENSE
 LazyData: TRUE
@@ -33,4 +33,5 @@ Suggests:
     testthat,
     rgeos,
     raster,
-    curl
+    curl,
+    lintr

@@ -27,4 +27,3 @@ StudyArea <- function(coords, bbox = FALSE) {
   boundingBoxC <- list(boundingBoxC)
   SpatialPolygons(boundingBoxC, proj4string = CRS("+proj=longlat +datum=WGS84"))
 }
-
