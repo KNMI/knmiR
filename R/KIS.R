@@ -17,12 +17,15 @@ KIS <- function(var, geoIdentifier, period) {
              paste(substitute(geoIdentifier)),
              paste(class(geoIdentifier)[1]))
   flog.debug("period={%s}", paste(period))
-  assertChoice(var, c("TG", "MOR_10"))
+  assertChoice(var, c("TG", "MOR_10", "FF_10M_10"))
   if (var == "TG") {
     assertChoice(geoIdentifier, c("260_H", "310_H"))
   }
   if (var == "MOR_10") {
-    assertChoice(geoIdentifier, c("260_A_a", "290_A_a"))
+    assertChoice(geoIdentifier, c("260_A_a", "290_A_a","348_A_a","280_A_23t"))
+  }
+  if (var == "FF_10M_10") {
+    assertChoice(geoIdentifier, c("260_W_a"))
   }
   tryCatch(xts::.parseISO8601(period),
            warning = function(cond) {
@@ -57,6 +60,10 @@ WriteKISRecipe <- function(var, locationID, period) {
   } else if (var == "MOR_10") {
     dataSeries <- "TOA"
     unit       <- "m"
+  }
+  else if (var == 'FF_10M_10') {
+    dataSeries <- "TOW"
+    unit       <- "m/s"
   } else {
     stop(paste0("Variable ", var, " not defined."))
   }
