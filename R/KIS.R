@@ -22,7 +22,7 @@ KIS <- function(var, geoIdentifier, period) {
     assertChoice(geoIdentifier, c("260_H", "310_H"))
   }
   if (var == "MOR_10") {
-    assertChoice(geoIdentifier, c("260_A_a", "290_A_a"))
+    assertChoice(geoIdentifier, c("260_A_a", "290_A_a","348_A_a","280_A_23t"))
   }
   if (var == "FF_10M_10") {
     assertChoice(geoIdentifier, c("260_W_a"))
