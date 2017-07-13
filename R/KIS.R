@@ -11,7 +11,8 @@
 #' }
 KIS <- function(var, geoIdentifier, period) {
   InternalOnly()
-  morStations <- c("260_A_a", "290_A_a", "348_A_a", "280_A_23t", "380_A_22t", "344_A_24t", "240_A_18Ct")
+  morStations <- c("260_A_a", "290_A_a", "348_A_a", "280_A_23t",
+                   "380_A_22t", "344_A_24t", "240_A_18Ct")
   flog.debug("Started downloading data from KIS")
   flog.debug("var={%s}", paste(var))
   flog.debug("geoIdentifier has name={%s} and class={%s}",
