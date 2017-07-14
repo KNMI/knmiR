@@ -13,21 +13,34 @@ KIS <- function(var, geoIdentifier, period) {
   InternalOnly()
   morStations <- c("260_A_a", "290_A_a", "348_A_a", "280_A_23t",
                    "380_A_22t", "344_A_24t", "240_A_18Ct")
+  groundTempStations <- c("260_T_a", "290_T_a", "348_T_a", "280_T_23t",
+                   "380_T_22t", "344_T_24t", "240_T_18Ct")
+  windStations <- c("260_W_a", "290_W_a", "348_W_a", "280_W_23t",
+                          "380_W_22t", "344_W_24t", "240_W_18Ct")
   flog.debug("Started downloading data from KIS")
   flog.debug("var={%s}", paste(var))
   flog.debug("geoIdentifier has name={%s} and class={%s}",
              paste(substitute(geoIdentifier)),
              paste(class(geoIdentifier)[1]))
   flog.debug("period={%s}", paste(period))
-  assertChoice(var, c("TG", "MOR_10", "FF_10M_10"))
+  assertChoice(var, c("TG", "MOR_10", "FF_10M_10", "T_DRYB_10"))
   if (var == "TG") {
     assertChoice(geoIdentifier, c("260_H", "310_H"))
+  }
+  if (var == "T_DRYB_10") {
+    assertChoice(geoIdentifier, groundTempStations)
+  }
+  if (var == "T_DEWP_10") {
+    assertChoice(geoIdentifier, groundTempStations)
+  }
+  if (var == "U_10") {
+    assertChoice(geoIdentifier, groundTempStations)
   }
   if (var == "MOR_10") {
     assertChoice(geoIdentifier, morStations)
   }
   if (var == "FF_10M_10") {
-    assertChoice(geoIdentifier, c("260_W_a"))
+    assertChoice(geoIdentifier, windStations)
   }
   tryCatch(xts::.parseISO8601(period),
            warning = function(cond) {
@@ -62,10 +75,18 @@ WriteKISRecipe <- function(var, locationID, period) {
   } else if (var == "MOR_10") {
     dataSeries <- "TOA"
     unit       <- "m"
-  }
-  else if (var == "FF_10M_10") {
+  } else if (var == "FF_10M_10") {
     dataSeries <- "TOW"
     unit       <- "m/s"
+  } else if (var == "U_10") {
+    dataSeries <- "TOT"
+    unit       <- "%"
+  } else if (var == "T_DEWP_10") {
+    dataSeries <- "TOT"
+    unit       <- "graad C"
+  } else if (var == "T_DRYB_10") {
+    dataSeries <- "TOT"
+    unit       <- "graad C"
   } else {
     stop(paste0("Variable ", var, " not defined."))
   }
