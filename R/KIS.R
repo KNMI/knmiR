@@ -23,7 +23,7 @@ KIS <- function(var, geoIdentifier, period) {
              paste(substitute(geoIdentifier)),
              paste(class(geoIdentifier)[1]))
   flog.debug("period={%s}", paste(period))
-  assertChoice(var, c("TG", "MOR_10", "FF_10M_10", "T_DRYB_10"))
+  assertChoice(var, c("TG", "MOR_10", "FF_10M_10", "T_DRYB_10", "U_10", "T_DEWP_10"))
   if (var == "TG") {
     assertChoice(geoIdentifier, c("260_H", "310_H"))
   }
