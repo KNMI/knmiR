@@ -127,8 +127,8 @@ ExecuteKISRecipe <- function(recipeName, period) {
   url <- paste0(url, CorrectDataFormat(parsedPeriod$first.time + 1),
                 "/", CorrectDataFormat(parsedPeriod$last.time + 1),
                 "/", "CSV")
-  uuid<-UUIDgenerate()
-  destFile <- paste0("KIStable", uuid,".csv")
+  uuid <- UUIDgenerate()
+  destFile <- paste0("KIStable", uuid, ".csv")
 
   flog.info("Start data download.")
   download.file(url, destFile, method = "wget", quiet = T,
