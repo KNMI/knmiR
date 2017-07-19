@@ -68,8 +68,10 @@ WriteKISRecipe <- function(var, locationID, period) {
   # period is not yet used in the recipe
   # max results does not seem to have any effect
 
+  uuid2 <- UUIDgenerate()
+
   # FIXME: Ensure that the recipe file is deleted
-  recipeName <- "KIStable.txt"
+  recipeName <- paste0("KIStable", uuid2, ".txt")
 
   if (var == "TG") {
     dataSeries <- "REH1"
