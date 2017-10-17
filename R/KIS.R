@@ -11,7 +11,7 @@
 #'  KIS('TG', '260_H', '2016')
 #'  KIS('MOR_10', '260_A_a', '2016-02-01')
 #' }
-KIS <- function(var, geoIdentifier, period, knmiStationTable) {
+KIS <- function(var, geoIdentifier, period, knmiStationsTable) {
   InternalOnly()
   morStations <- gsub("SENSORID","A",knmiStationsTable$knmi_kis_id)
     # c("260_A_a", "290_A_a", "348_A_a", "280_A_23t",
