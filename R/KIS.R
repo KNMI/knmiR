@@ -2,6 +2,7 @@
 #' @param var Variable to extract for now 'TG' and 'MOR_10' are allowed (plural?)
 #' @param geoIdentifier Station identifier (, spatial point, spatial area ..., plural?)
 #' @param period Either numeric, timeBased or ISO-8601 style (see \code{\link[xts]{.subset.xts}})
+#' @param knmiStationTable table containing KNMI KIS stations with their IDs
 #' @return data.table
 #' @import uuid
 #' @export
@@ -10,14 +11,17 @@
 #'  KIS('TG', '260_H', '2016')
 #'  KIS('MOR_10', '260_A_a', '2016-02-01')
 #' }
-KIS <- function(var, geoIdentifier, period) {
+KIS <- function(var, geoIdentifier, period, knmiStationTable) {
   InternalOnly()
-  morStations <- c("260_A_a", "290_A_a", "348_A_a", "280_A_23t",
-                   "380_A_22t", "344_A_24t", "240_A_18Ct")
-  groundTempStations <- c("260_T_a", "290_T_a", "348_T_a", "280_T_23t",
-                   "380_T_22t", "344_T_24t", "240_T_18Ct")
-  windStations <- c("260_W_a", "290_W_a", "348_W_a", "280_W_23t",
-                          "380_W_22t", "344_W_24t", "240_W_18Ct")
+  morStations <- gsub("SENSORID","A",knmiStationsTable$knmi_kis_id)
+    # c("260_A_a", "290_A_a", "348_A_a", "280_A_23t",
+    #                "380_A_22t", "344_A_24t", "240_A_18Ct")
+  groundTempStations <- gsub("SENSORID","T",knmiStationsTable$knmi_kis_id)
+    # c("260_T_a", "290_T_a", "348_T_a", "280_T_23t",
+    #                "380_T_22t", "344_T_24t", "240_T_18Ct")
+  windStations <- gsub("SENSORID","W",knmiStationsTable$knmi_kis_id)
+    # c("260_W_a", "290_W_a", "348_W_a", "280_W_23t",
+    #                       "380_W_22t", "344_W_24t", "240_W_18Ct")
   flog.debug("Started downloading data from KIS")
   flog.debug("var={%s}", paste(var))
   flog.debug("geoIdentifier has name={%s} and class={%s}",
